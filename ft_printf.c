@@ -55,7 +55,11 @@ int    ft_flag(int i, const char *str, va_list print_list)
 {
     if(str[i] == '-')
     {
-        i = ft_tiret(i, str, print_list);
+
+        if (str[i + 1] == '*')
+            i = ft_tiret_star(i + 1, str, print_list);
+        else
+            i = ft_tiret(i, str, print_list);
         return i;
     }
     if(str[i] > '0' && str[i] <= '9')
@@ -64,18 +68,28 @@ int    ft_flag(int i, const char *str, va_list print_list)
         return i;
     }
     else if(str[i] == '0')
-    {    
-        i = ft_zero(i, str, print_list);
+    {   
+        while(str[i] == '0')
+            i++;
+        if (str[i] == '*')
+            i = ft_zero_star(i, str, print_list);
+        else
+            i = ft_zero(i, str, print_list);
         return i;
     }
     else if(str[i] == '.')
     {
-        i = ft_point(i, str, print_list);
+        if (str[i + 1] == '*')
+            i = ft_point_star(i + 1, str, print_list);
+        else
+            i = ft_point(i, str, print_list);
         return i;
     }
-    /*else if(str[i] == '*')
-        ft_putstr(ft_itoa(va_arg(print_list, int), 10));
-*/
+    else if(str[i] == '*')
+    {
+        i = ft_space_star(i, str, print_list);
+        return i;
+    }
     else
         ft_type(str[i], print_list);
     return i;
@@ -144,8 +158,10 @@ int main ()
 
     printf("\n\n----------NUMBERS----------\n\n");
 
-	ft_printf("salut %2s  p\n",  s2);
-	printf("salut %2s  p\n\n",  s2);
+    ft_printf("salut %-50d  p\n", 50);
+	ft_printf("salut %.50d  p\n", 50);
+    ft_printf("salut %-50.40d  p\n", 50);
+	printf("salut %-40.50d  p\n\n",  50);
 
     /*ft_printf("%0015d|\n",50);
 	printf("%0015d|\n\n",50);

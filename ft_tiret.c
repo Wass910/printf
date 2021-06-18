@@ -99,3 +99,19 @@ int     ft_tiret(int i, const char *str, va_list print_list)
     }
     return (i);
 }
+
+int     ft_tiret_star(int i, const char *str, va_list print_list)
+{
+    int tmp;
+    int espaces;
+
+    tmp = va_arg(print_list, int);
+    i++;
+    espaces = ft_type_tiret(str[i], print_list);
+    while(tmp - espaces > 0)
+    {
+        ft_putchar(' ');
+        tmp--;
+    }
+    return (i);
+}

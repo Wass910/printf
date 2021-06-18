@@ -78,3 +78,14 @@ int     ft_point(int i, const char *str, va_list print_list)
     ft_type_point(str[i], print_list, tmp);
     return (i);
 }
+
+int     ft_point_star(int i, const char *str, va_list print_list)
+{
+
+    int tmp;
+
+    tmp = va_arg(print_list, int);
+    i++;
+    ft_type_point(str[i], print_list, tmp);
+    return (i);
+}
