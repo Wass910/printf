@@ -1,13 +1,13 @@
 #include "ft_printf.h"
 
-int     ft_zero_d(int nb, int speciation)
+int     ft_point_d(int nb, int speciation)
 {
     char *dest;
     int lengh;
 
     dest = ft_itoa(nb, 10);
     lengh = ft_strlen(dest);
-    if(nb <= 0)
+    if(nb == 0)
         speciation--;
     while(speciation - lengh > 0)
     {
@@ -18,54 +18,43 @@ int     ft_zero_d(int nb, int speciation)
     return 1;
 }
 
-int     ft_zero_u(unsigned int nb, int speciation)
+int     ft_point_s(char *dest, int speciation)
 {
-    char *dest;
     int lengh;
+    int i;
 
-    dest = ft_itoa_u(nb, 10);
+    i = 0;
     lengh = ft_strlen(dest);
-    if(nb <= 0)
-        speciation--;
-    while(speciation - lengh > 0)
+    if(lengh <= speciation)
     {
-        ft_putchar('0');
-        speciation--;
+        ft_putstr(dest);
+        return 1;
     }
-    ft_putstr(dest);
+    while (speciation > 0)    
+    {
+        ft_putchar(dest[i]);
+        speciation--;
+        i++;
+    }
     return 1;
 }
 
-int     ft_zero_x(char type,long int nb, int speciation)
+int     ft_type_point(char type, va_list print_list, int speciation)
 {
     char *dest;
-    int lengh;
 
-    dest = ft_itoa_x(nb, 10);
-    lengh = ft_strlen(dest);
-    if(nb <= 0)
-        speciation--;
-    while(speciation - lengh > 0)
-    {
-        ft_putchar('0');
-        speciation--;
-    }
-    ft_verif_x(type, nb);
-    return 1;
-}
-
-int     ft_type_zero(char type, va_list print_list, int speciation)
-{
     if(type == 'd' || type == 'i')
-        return(ft_zero_d(va_arg(print_list, int), speciation));
+        return(ft_point_d(va_arg(print_list, int), speciation));
     else if(type == 'u')
         return (ft_zero_u(va_arg(print_list, unsigned int), speciation));
     else if(type == 'x' || type == 'X')
         return (ft_zero_x(type, va_arg(print_list,unsigned int), speciation));
+    else if(type == 's')
+        return (ft_point_s(va_arg(print_list, char*), speciation));
     return 0;
 }
 
-int     ft_zero(int i, const char *str, va_list print_list)
+int     ft_point(int i, const char *str, va_list print_list)
 {
     char *speciation;
     int tmp;
@@ -86,6 +75,6 @@ int     ft_zero(int i, const char *str, va_list print_list)
     }
     i++;
     tmp = ft_atoi(speciation);
-    ft_type_zero(str[i], print_list, tmp);
+    ft_type_point(str[i], print_list, tmp);
     return (i);
 }

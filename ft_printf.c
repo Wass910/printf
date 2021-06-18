@@ -51,67 +51,16 @@ void     ft_type(char type, va_list print_list)
     return ;
 }
 
-int     ft_point_d(int nb, int speciation)
-{
-    char *dest;
-    int lengh;
-
-    dest = ft_itoa(nb, 10);
-    lengh = ft_strlen(dest);
-    if(nb == 0)
-        speciation--;
-    while(speciation - lengh > 0)
-    {
-        ft_putchar('0');
-        speciation--;
-    }
-    ft_putstr(dest);
-    return 1;
-}
-
-int     ft_type_point(char type, va_list print_list, int speciation)
-{
-    char *dest;
-
-    if(type == 'd' || type == 'i')
-        return(ft_point_d(va_arg(print_list, int), speciation));
-    else if(type == 'u')
-        return (ft_zero_u(va_arg(print_list, unsigned int), speciation));
-    else if(type == 'x' || type == 'X')
-        return (ft_zero_x(type, va_arg(print_list,unsigned int), speciation));
-    return 0;
-}
-
-int     ft_point(int i, const char *str, va_list print_list)
-{
-    char *speciation;
-    int tmp;
-
-    tmp = i;
-    while(str[tmp + 1] >= '0' && str [tmp + 1] <= '9')
-        tmp++;
-    if (!(speciation = malloc(sizeof(*speciation) * (tmp + 1))))
-		return (0);
-    tmp = 0; 
-    while(str[i + 1] == '0')
-        i++;
-    while(str[i + 1] >= '0' && str [i + 1] <= '9')
-    {
-        speciation[tmp] = str[i + 1];
-        tmp++;
-        i++;
-    }
-    i++;
-    tmp = ft_atoi(speciation);
-    ft_type_point(str[i], print_list, tmp);
-    return (i);
-}
-
 int    ft_flag(int i, const char *str, va_list print_list)
 {
     if(str[i] == '-')
     {
         i = ft_tiret(i, str, print_list);
+        return i;
+    }
+    if(str[i] > '0' && str[i] <= '9')
+    {
+        i = ft_space(i, str, print_list);
         return i;
     }
     else if(str[i] == '0')
@@ -195,10 +144,86 @@ int main ()
 
     printf("\n\n----------NUMBERS----------\n\n");
 
-	ft_printf("salut %.003d  p\n",  -10);
-	printf("salut %.003d  p\n\n",  -10);
+	ft_printf("salut %2s  p\n",  s2);
+	printf("salut %2s  p\n\n",  s2);
 
-	/*ft_printf("salut ca va %x  p\n",  -1);
+    /*ft_printf("%0015d|\n",50);
+	printf("%0015d|\n\n",50);
+
+	ft_printf("%.010d|\n",50);
+	printf("%.010d|\n\n",50);
+
+	ft_printf("%-45d|\n", 50);
+	printf("%-45d|\n\n", 50);
+
+	ft_printf("%0023d|\n", 50);
+	printf("%0023d|\n\n", 50);
+
+	ft_printf("%.23d|\n", 50);
+	printf("%.23d|\n\n", 50);
+
+	ft_printf("%d|\n", 50);
+	printf("%d|\n\n", 50);
+
+	ft_printf("%-100d  p\n",50);
+	printf("%-100d  p\n\n",50);
+
+	ft_printf("%.010d|\n",50);
+	printf("%.010d|\n\n",50);
+
+	ft_printf("%d|\n", 50);
+	printf("%d|\n\n", 50);
+
+	ft_printf("%021d|\n", 50);
+	printf("%021d|\n\n",50);
+
+
+	ft_printf("%.10s|\n", s2);
+	printf("%.10s|\n\n", s2);
+
+ 	ft_printf("%-10s|\n", s2);
+	printf("%-10s|\n\n", s2);
+
+	ft_printf("%.010s|\n", s2);
+	printf("%.010s|\n\n", s2);
+
+	ft_printf("%.40s|\n", s2);
+	printf("%.40s|\n\n", s2);
+
+	ft_printf("%-40s|\n", s2);
+	printf("%-40s|\n\n", s2);
+
+	ft_printf("%.40s|\n", s2);
+	printf("%.40s|\n\n", s2);
+
+	ft_printf("%.040s|\n", s2);
+	printf("%.040s|\n\n", s2);
+
+	ft_printf("%s|\n",  s2);
+	printf("%s|\n\n",  s2);
+
+	ft_printf("%.50s|\n", s2);
+	printf("%.50s|\n\n", s2);
+
+ 	ft_printf("%-50s|\n", s2);
+	printf("%-50s|\n\n", s2);
+
+	ft_printf("%.5s|\n", s2);
+	printf("%.5s|\n\n", s2);
+
+	ft_printf("%.050s|\n", s2);
+	printf("%.050s|\n\n", s2);
+
+    ft_printf("%-10c|\n", c);
+	printf("%-10c|\n\n", c);
+
+	ft_printf("%-50c|\n", c);
+	printf("%-50c|\n\n", c);
+
+	ft_printf("%-2c|\n", c);
+	printf("%-2c|\n\n", c);
+	
+    ft_printf("salut ca va %x  p\n",  -1);
 	printf("salut ca va %x  p\n\n",  -1);
 
     ft_printf("hey %x  p\n",  -1);
@@ -225,25 +250,25 @@ int main ()
     ft_printf("popo %-19x  p\n",  -1);
 	printf("popo %-19x  p\n\n",  -1);
 
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
 
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
 
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
-
-
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
 
 
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
 
-    ft_printf("%d\n",  -1);
-	printf("%d\n\n",  -1);
+
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
+
+    ft_printf("%d|\n",  -1);
+	printf("%d|\n\n",  -1);
 */
     return 0;
 }

@@ -35,5 +35,8 @@ void    ft_verif_x(char c, unsigned int nb);
 int     ft_zero(int i, const char *str, va_list print_list);
 int     ft_zero_u(unsigned int nb, int speciation);
 int     ft_zero_x(char type,long int nb, int speciation);
+int     ft_point(int i, const char *str, va_list print_list);
+char	*ft_itoa_space( int n, int base);
+int     ft_space(int i, const char *str, va_list print_list);
 
 #endif
