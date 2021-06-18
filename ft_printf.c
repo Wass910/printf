@@ -51,11 +51,196 @@ void     ft_type(char type, va_list print_list)
     return ;
 }
 
+int ft_test(int i, const char *str)
+{
+    while (str[i] < 'a' || str[i] > 'z')
+    {
+        if (str[i] == '.')
+        {
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+
+int     ft_squeeze_spec(int i, const char *str)
+{
+    char *speciation;
+    int tmp;
+
+    tmp = i;
+    while(str[tmp] >= '0' && str [tmp ] <= '9')
+        tmp++;
+    if (!(speciation = malloc(sizeof(*speciation) * (tmp + 1))))
+		return (0);
+    tmp = 0; 
+    while(str[i] >= '0' && str [i] <= '9')
+    {
+        speciation[tmp] = str[i];
+        tmp++;
+        i++;
+    }
+    //i++;
+    tmp = ft_atoi(speciation);
+    return (tmp);
+}
+
+int     ft_squeeze_point(int i, const char *str)
+{
+    char *speciation;
+    int tmp;
+
+    tmp = i;
+    while(str[tmp] >= '0' && str [tmp ] <= '9')
+        tmp++;
+    if (!(speciation = malloc(sizeof(*speciation) * (tmp + 1))))
+		return (0);
+    tmp = 0; 
+    while(str[i] >= '0' && str [i] <= '9')
+    {
+        speciation[tmp] = str[i];
+        tmp++;
+        i++;
+    }
+    //i++;
+    tmp = ft_atoi(speciation);
+    return (tmp);
+}
+
+void    ft_write_space(int nb)
+{
+    while(nb > 0)
+    {
+        ft_putchar(' ');
+        nb--;
+    }
+    return ;
+}
+
+int     ft_point_d_squeeze(int nb, int space, int zer)
+{
+    char *dest;
+    int lengh;
+    int tmp;
+
+    if (space > zer)
+        tmp = space - zer;
+    dest = ft_itoa(nb, 10);
+    lengh = ft_strlen(dest);
+    if(nb == 0)
+       zer--;
+    while(zer - lengh > 0)
+    {
+        ft_putchar('0');
+        zer--;
+    }
+    ft_putstr(dest);
+    if (nb < 0)
+        tmp--;
+    while(tmp > 0)
+    {
+        ft_putchar(' ');
+        tmp--;
+    }
+    return 1;
+}
+
+int     ft_point_u_squeeze(unsigned int nb, int space, int zer)
+{
+    char *dest;
+    int lengh;
+    int tmp; 
+
+    dest = ft_itoa_u(nb, 10);
+    lengh = ft_strlen(dest);
+    if (space > zer)
+        tmp = space - zer;
+    if(nb <= 0)
+        zer--;
+    while(zer - lengh > 0)
+    {
+        ft_putchar('0');
+        zer--;
+    }
+    ft_putstr(dest);    
+    while(tmp > 0)
+    {
+        ft_putchar(' ');
+        tmp--;
+    }
+    return 1;
+}
+
+void     ft_type_squeeze(char type, va_list print_list, int space, int zer)
+{
+    if(type == 'd' || type == 'i')
+        ft_point_d_squeeze(va_arg(print_list, int), space, zer);
+    else if(type == 'u')
+        ft_point_u_squeeze(va_arg(print_list, unsigned int), space, zer);
+    /*else if(type == 'x' || type == 'X')
+       ft_point_x_squeeze(type, va_arg(print_list,unsigned int), space, zer);
+    else if(type == 's')
+        return (ft_point_s(va_arg(print_list, char*), speciation));
+    */
+    return ;
+}
+
+int     ft_squeeze(int i, const char *str, va_list print_list)
+{
+    int space;
+    int zer;
+    int tmp;
+
+    tmp = i;
+    while (str[tmp] != '.')
+        tmp++;
+    zer = ft_squeeze_point(tmp + 1, str);
+    space = ft_squeeze_spec(i, str);
+    while (str[tmp] < 'a' || str[tmp] > 'z')
+        tmp++;
+    ft_type_squeeze(str[tmp], print_list, space, zer); 
+
+    //ft_type_point(str[i], print_list, tmp);
+    return (tmp);
+}
+
+/*int ft_squeeze(int i, const char *str, va_list print_list)
+{
+    int tmp;
+
+    tmp = i;
+    while (str[tmp] != '.')
+        tmp++;
+    zer = ft_squeeze_point(i, str);
+    ft_point(i, str, print_list);
+    space = ft_squeeze_spec(i, str);
+    //printf("    %d     ", space);
+    while (str[i] < 'a' || str[i] > 'z')
+    {
+        if (str[i] == 'd')
+        {
+            zer = ft_squeeze_point(i + 1, str);
+            if (space > zer)
+                ft_write_space(space - zer);
+        }
+        i++;
+    }
+    return i;
+}
+*/
 int    ft_flag(int i, const char *str, va_list print_list)
 {
+    int test;
+
     if(str[i] == '-')
     {
-
+        test = ft_test(i + 1, str);
+        if (test == 1)
+        {
+            i = ft_squeeze(i + 1, str, print_list);
+            return i;
+        }
         if (str[i + 1] == '*')
             i = ft_tiret_star(i + 1, str, print_list);
         else
@@ -158,10 +343,8 @@ int main ()
 
     printf("\n\n----------NUMBERS----------\n\n");
 
-    ft_printf("salut %-50d  p\n", 50);
-	ft_printf("salut %.50d  p\n", 50);
-    ft_printf("salut %-50.40d  p\n", 50);
-	printf("salut %-40.50d  p\n\n",  50);
+    ft_printf("salut %-60.70u  p\n", 0);
+	printf("salut %-60.70u  p\n\n", 0);
 
     /*ft_printf("%0015d|\n",50);
 	printf("%0015d|\n\n",50);
