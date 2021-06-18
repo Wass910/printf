@@ -76,15 +76,12 @@ int     ft_zero(int i, const char *str, va_list print_list)
     if (!(speciation = malloc(sizeof(*speciation) * (tmp + 1))))
 		return (0);
     tmp = 0; 
-    while(str[i + 1] == '0')
-        i++;
-    while(str[i + 1] >= '0' && str [i + 1] <= '9')
+    while(str[i] >= '0' && str [i] <= '9')
     {
-        speciation[tmp] = str[i + 1];
+        speciation[tmp] = str[i];
         tmp++;
         i++;
     }
-    i++;
     tmp = ft_atoi(speciation);
     ft_type_zero(str[i], print_list, tmp);
     return (i);

@@ -124,10 +124,22 @@ int     ft_point_d_squeeze(int nb, int space, int zer)
     int lengh;
     int tmp;
 
+    tmp = 0;
+    if (nb == 0 && zer == 0)
+    {
+        while (space > 0)
+        {
+            ft_putchar(' ');
+            space--;
+        }
+        return 1;
+    }
     if (space > zer)
         tmp = space - zer;
     dest = ft_itoa(nb, 10);
     lengh = ft_strlen(dest);
+    if (zer == 0)
+        tmp = tmp - lengh;
     if(nb == 0)
        zer--;
     while(zer - lengh > 0)
@@ -152,10 +164,22 @@ int     ft_point_u_squeeze(unsigned int nb, int space, int zer)
     int lengh;
     int tmp; 
 
+    tmp = 0;
+    if (nb == 0 && zer == 0)
+    {
+        while (space > 0)
+        {
+            ft_putchar(' ');
+            space--;
+        }
+        return 1;
+    }
     dest = ft_itoa_u(nb, 10);
     lengh = ft_strlen(dest);
-    if (space > zer)
+    if (space > zer && zer > lengh)
         tmp = space - zer;
+    else if (lengh > zer)
+        tmp = space - lengh;
     if(nb <= 0)
         zer--;
     while(zer - lengh > 0)
@@ -163,7 +187,78 @@ int     ft_point_u_squeeze(unsigned int nb, int space, int zer)
         ft_putchar('0');
         zer--;
     }
-    ft_putstr(dest);    
+    ft_putstr(dest);   
+    while(tmp > 0)
+    {
+        ft_putchar(' ');
+        tmp--;
+    }
+    return 1;
+}
+
+int     ft_point_x_squeeze( unsigned int nb, int space, int zer, char type)
+{
+    char *dest;
+    int lengh;
+    int tmp; 
+
+    tmp = 0;
+    if (nb == 0 && zer == 0)
+    {
+        while (space > 0)
+        {
+            ft_putchar(' ');
+            space--;
+        }
+        return 1;
+    }
+    dest = ft_itoa_x(nb, 10);
+    lengh = ft_strlen(dest);
+    if (space > zer && zer > lengh)
+        tmp = space - zer;
+    else if (lengh > zer)
+        tmp = space - lengh;
+    //printf("    %d     ", tmp);
+    //if (zer == 0)
+     //   tmp = tmp - lengh ;
+    if(nb <= 0)
+        zer--;
+    while(zer - lengh > 0)
+    {
+        ft_putchar('0');
+        zer--;
+    }
+    ft_verif_x(type, nb);    
+    while(tmp > 0)
+    {
+        ft_putchar(' ');
+        tmp--;
+    }
+    return 1;
+}
+
+int     ft_point_s_squeeze(char *dest, int space, int zer)
+{
+    int lengh;
+    int i;
+    int tmp;
+
+    tmp = 0;
+    if (space > zer)
+        tmp = space - zer;
+    i = 0;
+    lengh = ft_strlen(dest);
+    if(lengh <= zer)
+    {
+        ft_putstr(dest);
+        return 1;
+    }
+    while (zer > 0)    
+    {
+        ft_putchar(dest[i]);
+        zer--;
+        i++;
+    }
     while(tmp > 0)
     {
         ft_putchar(' ');
@@ -178,11 +273,10 @@ void     ft_type_squeeze(char type, va_list print_list, int space, int zer)
         ft_point_d_squeeze(va_arg(print_list, int), space, zer);
     else if(type == 'u')
         ft_point_u_squeeze(va_arg(print_list, unsigned int), space, zer);
-    /*else if(type == 'x' || type == 'X')
-       ft_point_x_squeeze(type, va_arg(print_list,unsigned int), space, zer);
+    else if(type == 'x' || type == 'X')
+        ft_point_x_squeeze(va_arg(print_list,unsigned int), space, zer, type);
     else if(type == 's')
-        return (ft_point_s(va_arg(print_list, char*), speciation));
-    */
+        ft_point_s_squeeze(va_arg(print_list, char*), space, zer);
     return ;
 }
 
@@ -193,42 +287,23 @@ int     ft_squeeze(int i, const char *str, va_list print_list)
     int tmp;
 
     tmp = i;
+    if (str[tmp] == '*')
+        space = va_arg(print_list, int);
+    else 
+        space = ft_squeeze_spec(i, str);
     while (str[tmp] != '.')
         tmp++;
-    zer = ft_squeeze_point(tmp + 1, str);
-    space = ft_squeeze_spec(i, str);
+    if (str[tmp + 1] == '*')
+        zer = va_arg(print_list, int);
+    else
+        zer = ft_squeeze_point(tmp + 1, str);
     while (str[tmp] < 'a' || str[tmp] > 'z')
         tmp++;
     ft_type_squeeze(str[tmp], print_list, space, zer); 
 
-    //ft_type_point(str[i], print_list, tmp);
     return (tmp);
 }
 
-/*int ft_squeeze(int i, const char *str, va_list print_list)
-{
-    int tmp;
-
-    tmp = i;
-    while (str[tmp] != '.')
-        tmp++;
-    zer = ft_squeeze_point(i, str);
-    ft_point(i, str, print_list);
-    space = ft_squeeze_spec(i, str);
-    //printf("    %d     ", space);
-    while (str[i] < 'a' || str[i] > 'z')
-    {
-        if (str[i] == 'd')
-        {
-            zer = ft_squeeze_point(i + 1, str);
-            if (space > zer)
-                ft_write_space(space - zer);
-        }
-        i++;
-    }
-    return i;
-}
-*/
 int    ft_flag(int i, const char *str, va_list print_list)
 {
     int test;
@@ -343,10 +418,49 @@ int main ()
 
     printf("\n\n----------NUMBERS----------\n\n");
 
-    ft_printf("salut %-60.70u  p\n", 0);
-	printf("salut %-60.70u  p\n\n", 0);
+    ft_printf("salut %-*.14x  p\n",10,5);
+    printf("salut %-*.14x  p\n\n", 10,5);
 
-    /*ft_printf("%0015d|\n",50);
+    /*ft_printf("salut %-*.*x  p\n",5, 0,   -50);
+    printf("salut %-*.*x  p\n\n",5, 0,   -50);
+
+    ft_printf("salut %-*.*x  p\n",20, 10,   0);
+    printf("salut %-*.*x  p\n\n",20, 10,   0);
+
+    ft_printf("salut %-*.*x  p\n",15, 0,   0);
+    printf("salut %-*.*x  p\n\n",15, 0,   0);
+
+    ft_printf("salut %-*.*x  p\n",11, 7,   -10);
+	printf("salut %-*.*x  p\n\n", 11, 7, -10);
+
+    ft_printf("salut %-*.*u  p\n",20, 20,   20);
+    printf("salut %-*.*u  p\n\n",20, 20,   20);
+
+    ft_printf("salut %-*.*u  p\n",0, 0,   20);
+    printf("salut %-*.*u  p\n\n",0, 0,   20);
+
+    ft_printf("salut %-*.*u  p\n",10, 20,   50);
+    printf("salut %-*.*u  p\n\n",10, 20,   50);
+
+    ft_printf("salut %-*.*d  p\n",5, 4,   3);
+    printf("salut %-*.*d  p\n\n",5, 4,   3);
+
+    ft_printf("salut %-*.*d  p\n",010, 0,   10);
+    printf("salut %-*.*d  p\n\n",010, 0,   10);
+
+    ft_printf("salut %-*.*d  p\n",5, 10,   5);
+    printf("salut %-*.*d  p\n\n",5, 10,   5);
+
+    ft_printf("salut %-*.*x  p\n",5, 3,   0);
+    printf("salut %-*.*x  p\n\n",5, 3,   0);
+
+    ft_printf("salut %-*.*x  p\n",0, 02,   0);
+    printf("salut %-*.*x  p\n\n",0, 02,   0);
+
+    ft_printf("salut %-*.*x  p\n",15, 0,   -5);
+    printf("salut %-*.*x  p\n\n",15, 0,   -5);
+
+    ft_printf("%0015d|\n",50);
 	printf("%0015d|\n\n",50);
 
 	ft_printf("%.010d|\n",50);
@@ -447,27 +561,7 @@ int main ()
 	printf("sisi bg%-9x  p\n\n",  -1);
 
     ft_printf("popo %-19x  p\n",  -1);
-	printf("popo %-19x  p\n\n",  -1);
+	printf("popo %-19x  p\n\n",  -1);*/
 
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-
-
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-
-
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-
-    ft_printf("%d|\n",  -1);
-	printf("%d|\n\n",  -1);
-*/
     return 0;
 }
