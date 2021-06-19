@@ -42,6 +42,8 @@ int     ft_space_star(int i, const char *str, va_list print_list);
 int     ft_tiret_star(int i, const char *str, va_list print_list);
 int     ft_zero_star(int i, const char *str, va_list print_list);
 int     ft_point_star(int i, const char *str, va_list print_list);
+int     ft_test_squeeze(int i, const char *str);
+int     ft_squeeze(int i, const char *str, va_list print_list);
 
 
 #endif
