@@ -19,6 +19,7 @@ int     ft_tiret_d(int no_zer)
 int     ft_tiret_u(unsigned int no_zer_u)
 {
     char *dest;
+    unsigned int lengh;
 
     dest = ft_itoa_u(no_zer_u, 10);
     ft_putstr(dest);
@@ -26,7 +27,8 @@ int     ft_tiret_u(unsigned int no_zer_u)
         return 1;
     if(no_zer_u == 1)
         return (ft_strlen(dest));
-    if(no_zer_u == ft_strlen(dest))
+    lengh = ft_strlen(dest);
+    if(no_zer_u == lengh)
         return ft_strlen(dest + 1);
     return ft_strlen(dest);
 }

@@ -71,6 +71,32 @@ char	*ft_itoa( int n, int base)
 	return (str);
 }
 
+char	*ft_itoa_squeeze( int n, int base)
+{
+	char	*alpha;
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (ft_count(n) + 1))))
+		return (0);
+	alpha = "0123456789abcdef";
+	if (n < 0)
+	{
+		n = 4294967296 - (1 * n);
+        ft_putchar('-');
+	}
+	while (n > 0)
+	{
+		str[i] = alpha[n % base];
+		i++;
+		n = n / base;
+	}
+	str[i] = '\0';
+	str = ft_strrev(str);
+	return (str);
+}
+
 char	*ft_itoa_space( int n, int base)
 {
 	char	*alpha;
@@ -108,6 +134,29 @@ char	*ft_itoa_u(long int n, int base)
 		n = 4294967296 - (1 * n);
     if (n == 0)
         ft_putchar('0');
+	while (n > 0)
+	{
+		str[i] = alpha[n % base];
+		i++;
+		n = n / base;
+	}
+	str[i] = '\0';
+	str = ft_strrev(str);
+	return (str);
+}
+
+char	*ft_itoa_u_space(long int n, int base)
+{
+	char	*alpha;
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (ft_count(n) + 1))))
+		return (0);
+	alpha = "0123456789abcdef";
+	if (n < 0)
+		n = 4294967296 - (1 * n);
 	while (n > 0)
 	{
 		str[i] = alpha[n % base];

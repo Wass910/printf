@@ -41,7 +41,6 @@ int     ft_point_s(char *dest, int speciation)
 
 int     ft_type_point(char type, va_list print_list, int speciation)
 {
-    char *dest;
 
     if(type == 'd' || type == 'i')
         return(ft_point_d(va_arg(print_list, int), speciation));
