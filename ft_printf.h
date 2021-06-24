@@ -23,8 +23,8 @@ char	*ft_itoa_u(long int n, int base);
 char	*ft_itoa_x(long int n, int type_charac);
 int		ft_atoi(char *nptr);
 int		ft_strlen(char *s);
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
+int		ft_putchar(char c, int n);
+int		ft_putstr(char *s, int n);
 char	*ft_strdup(const char *s);
 int     ft_no_zer(int n);
 int     ft_type_tiret(char type, va_list print_list);
@@ -51,5 +51,7 @@ void    ft_condition_squeeze_d(int nb, int tmp);
 void    ft_write_space(int space);
 char	*ft_itoa_squeeze( int n, int base);
 char	*ft_itoa_u_space(long int n, int base);
+int     ft_test_spec(int i, const char *str, va_list print_list);
+void 	ft_verif_x_space(char c, unsigned int nb);
 
 #endif

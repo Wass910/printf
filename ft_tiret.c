@@ -5,7 +5,7 @@ int     ft_tiret_d(int no_zer)
     char *dest;
 
     dest = ft_itoa(no_zer, 10);
-    ft_putstr(dest);
+    ft_putstr(dest, 0);
     if(ft_no_zer(no_zer) == 1)
         return 1;
     if(no_zer == ft_strlen(dest))
@@ -22,26 +22,30 @@ int     ft_tiret_u(unsigned int no_zer_u)
     unsigned int lengh;
 
     dest = ft_itoa_u(no_zer_u, 10);
-    ft_putstr(dest);
+    lengh = ft_strlen(dest);
+    ft_putstr(dest, 0);
+    free(dest);
     if(ft_no_zer(no_zer_u) == 1)
         return 1;
     if(no_zer_u == 1)
-        return (ft_strlen(dest));
-    lengh = ft_strlen(dest);
+        return (lengh);
     if(no_zer_u == lengh)
-        return ft_strlen(dest + 1);
-    return ft_strlen(dest);
+        return lengh;
+    return lengh;
 }
 
 int     ft_tiret_x(char type, long int tiret_x)
 {
     char *dest;
+    int lengh;
 
     ft_verif_x(type, tiret_x);
     dest = ft_itoa_x(tiret_x, 1);
+    lengh = ft_strlen(dest);
+    free(dest);
     if(tiret_x == 0)
-        return (ft_strlen(dest) + 1);
-    return ft_strlen(dest);
+        return (lengh + 1);
+    return lengh;
 }
 
 int     ft_type_tiret(char type, va_list print_list)
@@ -52,13 +56,18 @@ int     ft_type_tiret(char type, va_list print_list)
         return(ft_tiret_d(va_arg(print_list, int)));
     else if(type == 'c')
     {
-        ft_putchar(va_arg(print_list, int));
+        ft_putchar(va_arg(print_list, int), 0);
         return 1;
     }
     else if(type == 's')
     {    
         dest = ft_strdup(va_arg(print_list, char*));
-        ft_putstr(dest);
+        if (dest == NULL)
+        {
+            ft_putstr("(null)", 0);
+            return ft_strlen(dest);
+        }
+        ft_putstr(dest, 0);
         return ft_strlen(dest);
     }
     else if(type == 'u')
@@ -96,9 +105,10 @@ int     ft_tiret(int i, const char *str, va_list print_list)
     espaces = ft_type_tiret(str[i], print_list);
     while(tmp - espaces > 0)
     {
-        ft_putchar(' ');
+        ft_putchar(' ', 0);
         tmp--;
     }
+    free(speciation);
     return (i);
 }
 
@@ -108,11 +118,13 @@ int     ft_tiret_star(int i, const char *str, va_list print_list)
     int espaces;
 
     tmp = va_arg(print_list, int);
+    if (tmp < 0)
+        tmp = tmp * (-1);
     i++;
     espaces = ft_type_tiret(str[i], print_list);
     while(tmp - espaces > 0)
     {
-        ft_putchar(' ');
+        ft_putchar(' ', 0);
         tmp--;
     }
     return (i);

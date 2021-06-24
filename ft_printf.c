@@ -14,22 +14,22 @@ void ft_verif_x(char c, unsigned int nb)
 {
     if (nb == 0)
     {
-        ft_putchar('0');
+        ft_putchar('0', 0);
         return;
     }
     if(c == 'x')
-        ft_putstr(ft_itoa_x(nb, 1));
+        ft_putstr(ft_itoa_x(nb, 1), 0);
     else
-        ft_putstr(ft_itoa_x(nb, 2)); 
+        ft_putstr(ft_itoa_x(nb, 2), 0); 
     return ;
 }
 
 void ft_verif_x_space(char c, unsigned int nb)
 {
     if(c == 'x')
-        ft_putstr(ft_itoa_x(nb, 1));
+        ft_putstr(ft_itoa_x(nb, 1), 0);
     else
-        ft_putstr(ft_itoa_x(nb, 2)); 
+        ft_putstr(ft_itoa_x(nb, 2), 0); 
     return ;
 }
 
@@ -40,190 +40,32 @@ char     *ft_adress(void *adress)
     
     dest = ft_itoa_u((intptr_t)adress, 16);
     write(1, "0x", 2);
-    ft_putstr(dest);
+    ft_putstr(dest, 0);
     return dest;
 }
 
 void     ft_type(char type, va_list print_list)
 {
+    char *dest;
     if(type == 'd' || type == 'i')
-        ft_putstr(ft_itoa(va_arg(print_list, int), 10));
+        ft_putstr(ft_itoa(va_arg(print_list, int), 10), 0);
     else if(type == 'c')
-        ft_putchar(va_arg(print_list, int));
+        ft_putchar(va_arg(print_list, int), 0);
     else if(type == 's')
-        ft_putstr(va_arg(print_list, char*));
+    {
+        dest = va_arg(print_list, char*);
+        if ( dest == NULL)
+            ft_putstr("(null)", 0);
+        else
+            ft_putstr(dest, 0);
+    }
     else if(type == 'u')
-        ft_putstr(ft_itoa_u(va_arg(print_list,unsigned int), 10));
+        ft_putstr(ft_itoa_u(va_arg(print_list,unsigned int), 10), 0);
     else if(type == 'x' || type == 'X')
         ft_verif_x(type, va_arg(print_list, unsigned int));
     else if(type == 'p')
         ft_adress(va_arg(print_list,void *));
     return ;
-}
-
-int     ft_point_d_space(int nb, int space, int zer)
-{
-    char *dest;
-    int lengh;
-    int tmp;
-
-    tmp = 0;
-    dest = ft_itoa_space(nb, 10);
-    lengh = ft_strlen(dest);
-    if (nb < 0)
-        space--;
-    space = space - zer;
-    if(zer == 0 && nb != 0)
-        space = space - lengh;
-    while(space > 0)
-    {
-        ft_putchar(' ');
-        space--;
-    }
-    if(nb < 0)
-    {
-        ft_putchar('-');
-    }
-    while (zer - lengh > 0)
-    {
-        ft_putchar('0');
-        zer--;
-    }
-    ft_putstr(dest);
-    return 1;
-}
-
-int     ft_point_u_space(unsigned int nb, int space, int zer)
-{
-    char *dest;
-    int lengh;
-    int tmp;
-
-    tmp = 0;
-    dest = ft_itoa_u_space(nb, 10);
-    lengh = ft_strlen(dest);
-    if (nb < 0)
-        space--;
-    space = space - zer;
-    if(zer == 0 && nb != 0)
-        space = space - lengh;
-    while(space > 0)
-    {
-        ft_putchar(' ');
-        space--;
-    }
-    if(nb < 0)
-    {
-        ft_putchar('-');
-    }
-    while (zer - lengh > 0)
-    {
-        ft_putchar('0');
-        zer--;
-    }
-    ft_putstr(dest);
-    return 1;
-}
-
-int     ft_point_x_space(unsigned int nb, int space, int zer, char type)
-{
-    char *dest;
-    int lengh;
-    int tmp;
-
-    tmp = 0;
-    dest = ft_itoa_x(nb, 10);
-    lengh = ft_strlen(dest);
-    if (nb < 0)
-        space--;
-    space = space - zer;
-    if(zer == 0 && nb != 0)
-        space = space - lengh;
-    while(space > 0)
-    {
-        ft_putchar(' ');
-        space--;
-    }
-    if(nb < 0)
-    {
-        ft_putchar('-');
-    }
-    while (zer - lengh > 0)
-    {
-        ft_putchar('0');
-        zer--;
-    }
-    ft_verif_x_space(type, nb);
-    return 1;
-}
-
-int     ft_point_s_space(char *dest, int space, int zer)
-{
-    int lengh;
-    int i;
-    int tmp;
-
-    tmp = 0;
-    if (space > zer)
-        tmp = space - zer;
-    i = 0;
-    lengh = ft_strlen(dest);
-    if(lengh <= zer)
-    {
-        ft_putstr(dest);
-        return 1;
-    }
-    while(tmp > 0)
-    {
-        ft_putchar(' ');
-        tmp--;
-    }
-    while (zer > 0)    
-    {
-        ft_putchar(dest[i]);
-        zer--;
-        i++;
-    }
-    return 1;
-}
-
-void     ft_type_squeeze_spec(char type, va_list print_list, int space, int zer)
-{
-    if(type == 'd' || type == 'i')
-        ft_point_d_space(va_arg(print_list, int), space, zer);
-    else if(type == 'u')
-        ft_point_u_space(va_arg(print_list, unsigned int), space, zer);
-    else if(type == 'x' || type == 'X')
-        ft_point_x_space(va_arg(print_list,unsigned int), space, zer, type);
-    else if(type == 's')
-        ft_point_s_space(va_arg(print_list, char*), space, zer);
-    return ;
-}
-
-int     ft_test_spec(int i, const char *str, va_list print_list)
-{
-    int space;
-    int zer;
-    int tmp;
-
-    tmp = i;
-    if (str[tmp] == '*')
-        space = va_arg(print_list, int);
-    else 
-        space = ft_squeeze_spec(i, str);
-    while (str[tmp] != '.')
-        tmp++;
-    if (str[tmp + 1] == '*')
-        zer = va_arg(print_list, int);
-    else
-        zer = ft_squeeze_point(tmp + 1, str);
-    while (str[tmp] < 'a' || str[tmp] > 'z')
-        tmp++;
-    if(space <= zer)
-        ft_type_squeeze(str[tmp], print_list, space, zer); 
-    else 
-        ft_type_squeeze_spec(str[tmp], print_list, space, zer);
-    return (tmp);
 }
 
 int     ft_choose(int i, const char *str)
@@ -320,183 +162,164 @@ int ft_all( const char *str, va_list print_list)
     while(str[i] != '\0')
     {
         if(str[i] == '%' && str[i + 1] == '%')
-            ft_putchar('%');
+            ft_putchar('%', 0);
         if(str[i] != '%')
-            ft_putchar(str[i]);
+            ft_putchar(str[i], 0);
         else
             i = ft_analyse(i + 1, str, print_list);
         i++;
     }
 
-    return 0;
+    return i;
 }
 
 int     ft_printf(const char *str, ...)
 {
+    int count;
+    int ret;
+    int result;
+    result = 0;
 	va_list		print_list;
 
 	va_start(print_list, str);
     ft_all( str, print_list);
+    count = ft_putchar('a', 1);
+    ret = ft_putstr("a", 1);
+    result = count + ret;
     printf("\n");
     va_end(print_list);
-	return 0;
+	return result;
 }
 
-int main ()
+/*int main ()
 {
-    char s2[] = "Voici l'operation :";
-	char c = 'a';
-	int *ptr ;
+
+
 
     printf("\n\n----------NUMBERS----------\n\n");
 
-    /*ft_printf("uoWBks99KkaTO%14X%-6X7q%-.3x\n", 0, -2147483647, -2147483647);
-	printf("uoWBks99KkaTO%14X%-6X7q%-.3x", 0, -2147483647, -2147483647);*/
-    
-    ft_printf("salut %*.*d  p\n", 10,4,42);
-    printf("salut %*.*d  p\n\n",  10,4, 42);
-
-    /*ft_printf("salut %-*.*x  p\n",5, 0,   -50);
-    printf("salut %-*.*x  p\n\n",5, 0,   -50);
-
-    ft_printf("salut %-*.*x  p\n",20, 10,   0);
-    printf("salut %-*.*x  p\n\n",20, 10,   0);
-
-    ft_printf("salut %-*.*x  p\n",15, 0,   0);
-    printf("salut %-*.*x  p\n\n",15, 0,   0);
-
-    ft_printf("salut %-*.*x  p\n",11, 7,   -10);
-	printf("salut %-*.*x  p\n\n", 11, 7, -10);
-
-    ft_printf("salut %-*.*x  p\n",20, 20,   20);
-    printf("salut %-*.*x  p\n\n",20, 20,   20);
-
-    ft_printf("salut %-*.*x  p\n",0, 0,   20);
-    printf("salut %-*.*x  p\n\n",0, 0,   20);
-
-    ft_printf("salut %-*.*x  p\n",10, 20,   50);
-    printf("salut %-*.*x  p\n\n",10, 20,   50);
-
-    ft_printf("salut %-*.*x  p\n",5, 4,   3);
-    printf("salut %-*.*x  p\n\n",5, 4,   3);
-
-    ft_printf("salut %-*.*x  p\n",010, 0,   10);
-    printf("salut %-*.*x  p\n\n",010, 0,   10);
-
-    ft_printf("salut %-*.*x  p\n",5, 10,   5);
-    printf("salut %-*.*x  p\n\n",5, 10,   5);
-
-    ft_printf("salut %-*.*x  p\n",5, 3,   0);
-    printf("salut %-*.*x  p\n\n",5, 3,   0);
-
-    ft_printf("salut %-*.*x  p\n",0, 02,   0);
-    printf("salut %-*.*x  p\n\n",0, 02,   0);
-
-    ft_printf("salut %-*.*x  p\n",15, 0,   -5);
-    printf("salut %-*.*x  p\n\n",15, 0,   -5);
-
-    ft_printf("%0015d|\n",50);
-	printf("%0015d|\n\n",50);
-
-	ft_printf("%.010d|\n",50);
-	printf("%.010d|\n\n",50);
-
-	ft_printf("%-45d|\n", 50);
-	printf("%-45d|\n\n", 50);
-
-	ft_printf("%0023d|\n", 50);
-	printf("%0023d|\n\n", 50);
-
-	ft_printf("%.23d|\n", 50);
-	printf("%.23d|\n\n", 50);
-
-	ft_printf("%d|\n", 50);
-	printf("%d|\n\n", 50);
-
-	ft_printf("%-100d  p\n",50);
-	printf("%-100d  p\n\n",50);
-
-	ft_printf("%.010d|\n",50);
-	printf("%.010d|\n\n",50);
-
-	ft_printf("%d|\n", 50);
-	printf("%d|\n\n", 50);
-
-	ft_printf("%021d|\n", 50);
-	printf("%021d|\n\n",50);
+    ft_printf("%.1s%*i%2dnZNzJigntfWNJ", NULL, -10, 2147483647, 2147483647);
+    printf("%.1s%*i%2dnZNzJigntfWNJ", NULL, -10, 2147483647, 2147483647);
 
 
-	ft_printf("%-*.10s|\n",14, s2);
-	printf("%-*.10s|\n\n",14, s2);
 
- 	ft_printf("%-10.s|\n", s2);
-	printf("%-10.s|\n\n", s2);
 
-	ft_printf("%-*.010s|\n",3, s2);
-	printf("%-*.010s|\n\n",3,  s2);
 
-	ft_printf("%-13.40s|\n", s2);
-	printf("%-13.40s|\n\n", s2);
+Diff for printf("%*sNLlX7u6p3fke5Ta", -10, "");
+  printf: |          NLlX7u6p3fke5Ta-- 25 --|
+ftprintf: |NLlX7u6p3fke5Ta-- 15 --|
 
-	ft_printf("%-*.*s|\n",25,7, s2);
-	printf("%-*.*s|\n\n",25, 7, s2);
+Diff for printf("%-17.1s%-cvNxsOM9K4", NULL, '\0');
+  printf: |(                vNxsOM9K4-- 27 --|
+ftprintf: |(          vNxsOM9K4-- 21 --|
 
-	ft_printf("%.40s|\n", s2);
-	printf("%.40s|\n\n", s2);
+Diff for printf("%%26gQxNNA%*Xgg8PeyLtvSrb5DR%c", -9, 2147483647, 'D');
+  printf: |%26gQxNNA7FFFFFFF gg8PeyLtvSrb5DRD-- 34 --|
+ftprintf: |%26gQxNNA7FFFFFFFgg8PeyLtvSrb5DRD-- 33 --|
 
-	ft_printf("%.040s|\n", s2);
-	printf("%.040s|\n\n", s2);
+Diff for printf("nG6L%0.*u%-i%016.*dfzL2l", 4, 2147483647, 2147483647, -2, -2147483647);
+  printf: |nG6L21474836472147483647-000002147483647fzL2l-- 45 --|
+ftprintf: |nG6L21474836472147483647     -2147483647fzL2l-- 45 --|
 
-	ft_printf("%s|\n",  s2);
-	printf("%s|\n\n",  s2);
+Diff for printf("%-3XP%-13.*iupoaqvHyDI%%%18X%08u", -434915681, -6, 2147483647, -2147483647, 2147483647);
+  printf: |E613B69FP2147483647   upoaqvHyDI%          800000012147483647-- 61 --|
+ftprintf: |E613B69FP2147483647          upoaqvHyDI%          800000012147483647-- 68 --|
 
-	ft_printf("%-13.50s|\n", s2);
-	printf("%-13.50s|\n\n", s2);
+Diff for printf("%.3x%-12x%17.*sg27Lj%%aina", -10117281, -865060806, -4, NULL);
+  printf: |ff659f5fcc70383a               (null)g27Lj%aina-- 47 --|
+ftprintf: |ff659f5fcc70383a                         (null)g27Lj%aina-- 57 --|
 
- 	ft_printf("%-.*s|\n", 0,s2);
-	printf("%-.*s|\n\n", 0,s2);
+Diff for printf("X%0*x", -10, 2147483647);
+  printf: |X7fffffff  -- 11 --|
+ftprintf: |X7fffffff-- 9 --|
 
-	ft_printf("%-*.*s|\n",10,0 ,s2);
-	printf("%-*.*s|\n\n",10, 0, s2);
+Diff for printf("%-*.0xVzFfdgP60qJP%013.*iAlhxvf7%0.0u%0.1X", -1, 0, -9, 2147483647, 1480183496, -2147483647);
+  printf: | VzFfdgP60qJP0002147483647Alhxvf7148018349680000001-- 51 --|
+ftprintf: | VzFfdgP60qJP   2147483647Alhxvf7148018349680000001-- 51 --|
 
-	ft_printf("%-*.*s|\n",0, 10, s2);
-	printf("%-*.*s|\n\n",0,10, s2);
+Diff for printf("A8yDj%019x%-.3s", 0, "");
+  printf: |A8yDj0000000000000000000-- 24 --|
+ftprintf: |A8yDj0000000000000000000 -- 25 --|
 
-    ft_printf("%-10c|\n", c);
-	printf("%-10c|\n\n", c);
+Diff for printf("3%-*.2dTC%xUm%*d", 3, 0, 2147483647, 9, 427710461);
+  printf: |300 TC7fffffffUm427710461-- 25 --|
+ftprintf: |300TC7fffffffUm427710461-- 24 --|
 
-	ft_printf("%-50c|\n", c);
-	printf("%-50c|\n\n", c);
+Diff for printf("%-6iZ9ipf%u%11.0u%0.3XAX r1ARS", 0, 2147483647, -2147483647, 0);
+  printf: |0     Z9ipf2147483647 2147483649000AX r1ARS-- 43 --|
+ftprintf: |0     Z9ipf21474836472147483649000AX r1ARS-- 42 --|
 
-	ft_printf("%-2c|\n", c);
-	printf("%-2c|\n\n", c);
-	
-    ft_printf("salut ca va %x  p\n",  -1);
-	printf("salut ca va %x  p\n\n",  -1);
+Diff for printf("8EUwX%3.0i%-12.1s%*iD%03.4i%03dW9pqR", -2147483647, NULL, 4, -2147483647, 0, -2147483647);
+  printf: |8EUwX-2147483647(           -2147483647D0000-2147483647W9pqR-- 60 --|
+ftprintf: |8EUwX-2147483647(     -2147483647D0000-2147483647W9pqR-- 54 --|
 
-    ft_printf("hey %x  p\n",  -1);
-	printf("hey %x  p\n\n",  -1);
+Diff for printf("%03.2i%01XVh Ge%d%-5.2d%16sf3N%xsN85", 0, 0, -1626352288, 0, "", -2147483647);
+  printf: | 000Vh Ge-162635228800                   f3N80000001sN85-- 56 --|
+ftprintf: | 000Vh Ge-162635228800                f3N80000001sN85-- 53 --|
 
-    ft_printf("hey %-1x  p\n",  -1);
-	printf("hey %-1x  p\n\n",  -1);
+Diff for printf("vONyasJ%i0Qx%16.*xBBup", 0, -6, 0);
+  printf: |vONyasJ00Qx               0BBup-- 31 --|
+ftprintf: |vONyasJ00Qx                BBup-- 31 --|
 
-    ft_printf("hey %-2x  p\n",  -1);
-	printf("hey %-2x  p\n\n",  -1);
+Diff for printf("%4cBwW8PRbe4o94rLq %*d%x", '\0', -9, 0, 0);
+  printf: |   BwW8PRbe4o94rLq 0        0-- 30 --|
+ftprintf: |   BwW8PRbe4o94rLq 00-- 22 --|
 
-    ft_printf("azer %-3x  p\n",  -1);
-	printf("azer %-3x  p\n\n",  -1);
+Diff for printf("%-15.0d%0*.3X%-14c%%izyJ%-7.4s", -980656664, -9, -2147483647, 'h', NULL);
+  printf: |-980656664     80000001 h             %izyJ(nul   -- 50 --|
+ftprintf: |-980656664 80000001h             %izyJ(nul-- 42 --|
 
-    ft_printf("azer %-10x  p\n",  -1);
-	printf("azer %-10x  p\n\n",  -1);
+Diff for printf("taq5%-2XKU2UB%9d%*s2qx", 0, 2147483647, -8, NULL);
+  printf: |taq50 KU2UB2147483647(null)  2qx-- 32 --|
+ftprintf: |taq50 KU2UB2147483647(null)2qx-- 30 --|
 
-    ft_printf("ok toi %-15x  p\n",  -1);
-	printf("ok toi %-15x  p\n\n",  -1);
+Diff for printf("X%18.*X3%3.*s%%%-cwaYm%.3u", 7, 390736792, -5, NULL, 'n', 0);
+  printf: |X          174A2B983(null)%nwaYm000-- 35 --|
+ftprintf: |X          174A2B983        (null)%nwaYm000-- 43 --|
 
-    ft_printf("sisi bg%-9x  p\n",  -1);
-	printf("sisi bg%-9x  p\n\n",  -1);
+Diff for printf(" HUBq5hWTD%-20.4saKqjjh%0.1d%-*i%-.4i", NULL, -2147483647, 10, 0, 0);
+  printf: | HUBq5hWTD(nul                aKqjjh-21474836470         0000-- 61 --|
+ftprintf: | HUBq5hWTD(nul          aKqjjh-21474836470         0000-- 55 --|
 
-    ft_printf("popo %-19x  p\n",  -1);
-	printf("popo %-19x  p\n\n",  -1);*/
+Diff for printf("%.2dbv0SF%c%*x%10c%-9sc Gz4uCOBY", 2147483647, '\0', -2, 0, 'n', NULL);
+  printf: |2147483647bv0SF0          n(null)   c Gz4uCOBY-- 47 --|
+ftprintf: |2147483647bv0SF0         n(null)   c Gz4uCOBY-- 46 --|
+
+Diff for printf("%0i%-*cifXvXZH7VNc%%%*.*s qt", -2147483647, -4, '\0', 10, -2, "");
+  printf: |-2147483647   ifXvXZH7VNc%           qt-- 40 --|
+ftprintf: |-2147483647   ifXvXZH7VNc%             qt-- 42 --|
+
+Diff for printf("9 gF4%sgd5%-.1u%-*.5d%-9.5XnpPuV%-.3i3rNFU", NULL, -2016250990, -10, 473865453, -895578000, 0);
+  printf: |9 gF4(null)gd52278716306473865453 CA9E9070 npPuV0003rNFU-- 56 --|
+ftprintf: |9 gF4(null)gd52278716306473865453CA9E9070 npPuV0003rNFU-- 55 --|
+
+Diff for printf("mBnew%-3.3s4TVBA", "");
+  printf: |mBnew   4TVBA-- 13 --|
+ftprintf: |mBnew 4TVBA-- 11 --|
+
+Diff for printf("eIlc%5.5saS", "");
+  printf: |eIlc     aS-- 11 --|
+ftprintf: |eIlc aS-- 7 --|
+
+Diff for printf("u%-16.3iPnhKVo9%%%-.0s4", -2147483647, "");
+  printf: |u-2147483647     PnhKVo9%4-- 26 --|
+ftprintf: |u-2147483647         PnhKVo9% 4-- 31 --|
+
+Diff for printf("%-19X%-d%-3.0sMUKKkaupwq971X4S", 948297471, 0, "");
+  printf: |3885DEFF           0   MUKKkaupwq971X4S-- 39 --|
+ftprintf: |3885DEFF           0 MUKKkaupwq971X4S-- 37 --|
+
+Diff for printf("%-12.*iIaKVfEYihN4UR", 9, 0);
+  printf: |000000000   IaKVfEYihN4UR-- 25 --|
+ftprintf: |000000000IaKVfEYihN4UR-- 22 --|
+
+Diff for printf("ze%-2.0sroQ", "vrf08lDVmGGQdivZStdD4Z");
+  printf: |ze  roQ-- 7 --|
+ftprintf: |zeroQ-- 5 --|
+
+Diff for printf("%-*.5sI7GV8o%6c%c%.1du5fjA%X%-19.3x", -9, "", '\0', '\0', 103290513, 2147483647, 18372078);
+  printf: |         I7GV8o     103290513u5fjA7FFFFFFF11855ee            -- 63 --|
+ftprintf: | I7GV8o     103290513u5fjA7FFFFFFF11855ee            -- 55 --|
 
     return 0;
-}
+}*/

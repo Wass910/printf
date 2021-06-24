@@ -11,6 +11,7 @@ SRC=    ft_atoi.c       		\
 		ft_strlen.c     \
 		ft_tiret.c     \
 		ft_zero.c     \
+		ft_space_point.c
 
 NAME= libftprintf.a
 

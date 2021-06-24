@@ -11,10 +11,11 @@ int     ft_zero_d(int nb, int speciation)
         speciation--;
     while(speciation - lengh > 0)
     {
-        ft_putchar('0');
+        ft_putchar('0', 0);
         speciation--;
     }
-    ft_putstr(dest);
+    ft_putstr(dest, 0);
+    free(dest);
     return 1;
 }
 
@@ -29,10 +30,11 @@ int     ft_zero_u(unsigned int nb, int speciation)
         speciation--;
     while(speciation - lengh > 0)
     {
-        ft_putchar('0');
+        ft_putchar('0', 0);
         speciation--;
     }
-    ft_putstr(dest);
+    ft_putstr(dest, 0);
+    free(dest);
     return 1;
 }
 
@@ -47,10 +49,11 @@ int     ft_zero_x(char type,long int nb, int speciation)
         speciation--;
     while(speciation - lengh > 0)
     {
-        ft_putchar('0');
+        ft_putchar('0', 0);
         speciation--;
     }
     ft_verif_x(type, nb);
+    free(dest);
     return 1;
 }
 
@@ -84,6 +87,7 @@ int     ft_zero(int i, const char *str, va_list print_list)
     }
     tmp = ft_atoi(speciation);
     ft_type_zero(str[i], print_list, tmp);
+    free(speciation);
     return (i);
 }
 
