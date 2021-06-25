@@ -43,6 +43,11 @@ int     ft_zero_x(char type,long int nb, int speciation)
     char *dest;
     int lengh;
 
+    if (speciation < 0)
+    {
+        ft_space_x(type, nb, speciation);
+        return 1;
+    }
     dest = ft_itoa_x(nb, 10);
     lengh = ft_strlen(dest);
     if(nb <= 0)

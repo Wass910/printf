@@ -105,10 +105,14 @@ int     ft_point_d_squeeze(int nb, int space, int zer)
         ft_write_space(space);
         return 1;
     }
-    if (space > zer)
-        tmp = space - zer;
+    //if (space > zer)
+    //    tmp = space - zer;
     dest = ft_itoa(nb, 10);
     lengh = ft_strlen(dest);
+    if (space > zer && zer > lengh)
+        tmp = space - zer;
+    else if (lengh > zer)
+        tmp = space;
     if (zer == 0)
         tmp = tmp - lengh;
     if(nb == 0)
@@ -119,8 +123,8 @@ int     ft_point_d_squeeze(int nb, int space, int zer)
         zer--;
     }
     ft_putstr(dest, 0);
-    if (tmp > lengh)
-        ft_condition_squeeze_d(nb, tmp - (tmp - lengh));
+    if (space > lengh)
+        ft_condition_squeeze_d(nb, tmp );
     free(dest);
     return 1;
 }
@@ -197,11 +201,19 @@ int     ft_point_s_squeeze(char *dest, int space, int zer)
     zer_bis = zer;
     tmp = 0;
     i = 0;
-    
     lengh = ft_strlen(dest);
-    if (lengh == 0)
+    if (lengh == 0 && space == 0)
     {
-        ft_putchar(' ', 0);
+        //ft_putchar(' ', 0);
+        return 1;
+    }
+    else if (lengh == 0 && space != 0)
+    {
+        while (space > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
         return 1;
     }
     if (space < 0)
@@ -210,7 +222,12 @@ int     ft_point_s_squeeze(char *dest, int space, int zer)
         tmp = space ;
     }
     else if (space > zer)
-        tmp = space - lengh;
+    {
+        if (zer > lengh)
+            tmp = space - lengh;
+        else    
+            tmp = space;
+    }
     if (zer < 0)
         zer = ft_strlen(dest);
     if(lengh <= zer)

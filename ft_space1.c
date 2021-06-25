@@ -7,6 +7,22 @@ int     ft_space_d(int nb, int speciation)
 
     dest = ft_itoa_space(nb, 10);
     lengh = ft_strlen(dest);
+    if (speciation <  0)
+    {
+        if (nb == 0)
+        {
+            ft_putchar('0', 0);
+            lengh++;
+        }
+        else
+            ft_putstr(dest, 0);
+        while(speciation * (-1) - lengh > 0)
+        {
+            ft_putchar(' ', 0);
+            speciation++;
+        }
+        return 1;
+    }
     if(nb <= 0)
         speciation--;
     while(speciation - lengh > 0)
@@ -19,6 +35,38 @@ int     ft_space_d(int nb, int speciation)
     if (nb == 0)
         ft_putchar('0', 0);
     ft_putstr(dest, 0);
+    free(dest);
+    return 1;
+}
+
+int     ft_space_x(char type,long int nb, int speciation)
+{
+    char *dest;
+    int lengh;
+
+    dest = ft_itoa_x(nb, 10);
+    lengh = ft_strlen(dest);
+    if (speciation < 0)
+    {
+        ft_verif_x(type, nb);
+        speciation = speciation * (-1);
+        if (nb == 0)
+            lengh++;
+        while(speciation - lengh > 0)
+        {
+            ft_putchar(' ', 0);
+            speciation--;
+        }
+        return 1;
+    }
+    if(nb <= 0)
+        speciation--;
+    while(speciation - lengh > 0)
+    {
+        ft_putchar(' ', 0);
+        speciation--;
+    }
+    ft_verif_x(type, nb);
     free(dest);
     return 1;
 }
@@ -78,25 +126,6 @@ int     ft_space_c(char charac, int speciation)
     return 1;
 }
 
-int     ft_space_x(char type,long int nb, int speciation)
-{
-    char *dest;
-    int lengh;
-
-    dest = ft_itoa_x(nb, 10);
-    lengh = ft_strlen(dest);
-    if(nb <= 0)
-        speciation--;
-    while(speciation - lengh > 0)
-    {
-        ft_putchar(' ', 0);
-        speciation--;
-    }
-    ft_verif_x(type, nb);
-    free(dest);
-    return 1;
-}
-
 int     ft_space_p(void *adress, int speciation)
 {
     char *dest;
@@ -119,6 +148,17 @@ int     ft_space_s_null(char *dest, int speciation)
     int lengh;
 
     lengh = ft_strlen(dest);
+    if (speciation <  0)
+    {
+        ft_putstr(dest, 0);
+        speciation = speciation * (-1);
+        while(speciation - lengh > 0)
+        {
+            ft_putchar(' ', 0);
+            speciation--;
+        }
+        return 1;
+    }
     while(speciation - lengh > 0)
     {
         ft_putchar(' ', 0);
@@ -191,8 +231,9 @@ int     ft_space_star(int i, const char *str, va_list print_list)
 {
     int tmp;
 
-    
     tmp = va_arg(print_list, int);
+    if (tmp < 0 && str[i + 1] != 'x' && str[i + 1] != 'X' && str[i + 1] != 'd' && str[i + 1] != 'i' && str[i + 1] != 's')
+        tmp = tmp * (-1);
     i++;
     ft_type_space(str[i], print_list, tmp);
     return (i);
