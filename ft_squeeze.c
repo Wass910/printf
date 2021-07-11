@@ -70,8 +70,10 @@ void    ft_write_space(int space)
     return ;
 }
 
-void    ft_condition_squeeze_d(int nb, int tmp)
+void    ft_condition_squeeze_d(int nb, int tmp, int lengh)
 {
+    if (tmp > lengh)
+        tmp = tmp - lengh;
     if (nb < 0)
         tmp--;
     while(tmp > 0)
@@ -86,7 +88,7 @@ int    ft_condition_squeeze_u(int space, int zer, int lengh)
     int tmp;
 
     tmp = 0;
-    if (space > zer && zer > lengh)
+    if (space > zer && zer >= lengh)
         tmp = space - zer;
     else if (lengh > zer)
         tmp = space - lengh;
@@ -109,14 +111,27 @@ int     ft_point_d_squeeze(int nb, int space, int zer)
     //    tmp = space - zer;
     dest = ft_itoa(nb, 10);
     lengh = ft_strlen(dest);
-    if (space > zer && zer > lengh)
+    if (lengh == 0)
+        lengh++;
+    if (space < 0)
+    {
+        ft_putstr(dest, 0);
+        space = space * (-1);
+        while(space - lengh > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1;
+    }
+    if (space > zer && zer >= lengh)
         tmp = space - zer;
     else if (lengh > zer)
         tmp = space;
+    else if (space > zer && nb == 0)
+        tmp = space;
     if (zer == 0)
         tmp = tmp - lengh;
-    if(nb == 0)
-       zer--;
     while(zer - lengh > 0)
     {
         ft_putchar('0', 0);
@@ -124,7 +139,12 @@ int     ft_point_d_squeeze(int nb, int space, int zer)
     }
     ft_putstr(dest, 0);
     if (space > lengh)
-        ft_condition_squeeze_d(nb, tmp );
+    {
+        if (nb != 0)
+            ft_condition_squeeze_d(nb, tmp , lengh);
+        else 
+            ft_condition_squeeze_d(nb, tmp + 1, lengh);
+    }
     free(dest);
     return 1;
 }
@@ -173,9 +193,9 @@ int     ft_point_x_squeeze( unsigned int nb, int space, int zer, char type)
     }
     dest = ft_itoa_x(nb, 10);
     lengh = ft_strlen(dest);
+    if (lengh == 0)
+        lengh++;
     tmp = ft_condition_squeeze_u(space, zer, lengh);
-    if(nb <= 0)
-        zer--;
     while(zer - lengh > 0)
     {
         ft_putchar('0', 0);
@@ -289,8 +309,6 @@ int     ft_squeeze(int i, const char *str, va_list print_list)
     if (str[tmp] == '*')
     {
         space = va_arg(print_list, int);
-        if (space < 0)
-            space = space * (-1);
     }
     else 
         space = ft_squeeze_spec(i, str);
@@ -302,6 +320,8 @@ int     ft_squeeze(int i, const char *str, va_list print_list)
         zer = ft_squeeze_point(tmp + 1, str);
     while (str[tmp] < 'A' || (str[tmp] > 'Z' && str[tmp] < 'a') || str[tmp] > 'z')
         tmp++;
+    if (space < 0 && str[tmp] != 'd' && str[tmp] != 'i' && str[tmp] != 'u')
+        space = space * (-1);
     ft_type_squeeze(str[tmp], print_list, space, zer); 
 
     return (tmp);

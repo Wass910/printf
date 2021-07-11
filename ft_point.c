@@ -5,15 +5,17 @@ int     ft_point_d(int nb, int speciation)
     char *dest;
     int lengh;
 
-    dest = ft_itoa(nb, 10);
+    dest = ft_itoa_squeeze(nb, 10);
     lengh = ft_strlen(dest);
-    if(nb == 0)
-        speciation--;
+    if (lengh == 0)
+        lengh++;
     while(speciation - lengh > 0)
     {
         ft_putchar('0', 0);
         speciation--;
     }
+    if (nb == 0)
+        ft_putchar('0', 0);
     ft_putstr(dest, 0);
     free(dest);
     return 1;
@@ -44,6 +46,35 @@ int     ft_point_s(char *dest, int speciation)
     return 1;
 }
 
+
+int     ft_point_x(char type,long int nb, int speciation)
+{
+    char *dest;
+    int lengh;
+
+    if (speciation < 0)
+    {
+        ft_space_x(type, nb, speciation);
+        return 1;
+    }
+    dest = ft_itoa_x(nb, 10);
+    lengh = ft_strlen(dest);
+    if (lengh == 0)
+        lengh++;
+    if(nb <= 0)
+        speciation--;
+    while(speciation - lengh > 0)
+    {
+        ft_putchar('0', 0);
+        speciation--;
+    }
+    if (nb == 0)
+        ft_putchar('0', 0);
+    ft_verif_x_space(type, nb);
+    free(dest);
+    return 1;
+}
+
 int     ft_type_point(char type, va_list print_list, int speciation)
 {
     char *dest;
@@ -53,7 +84,9 @@ int     ft_type_point(char type, va_list print_list, int speciation)
     else if(type == 'u')
         return (ft_zero_u(va_arg(print_list, unsigned int), speciation));
     else if(type == 'x' || type == 'X')
-        return (ft_zero_x(type, va_arg(print_list,unsigned int), speciation));
+    {
+        return (ft_point_x(type, va_arg(print_list,unsigned int), speciation));
+    }
     else if(type == 's')
     {
         dest = va_arg(print_list, char*);
@@ -91,6 +124,22 @@ int     ft_point(int i, const char *str, va_list print_list)
     return (i);
 }
 
+int     ft_point_x_star(char type, unsigned int nb)
+{
+    char *dest;
+    int tmp;
+
+    if(type == 'x')
+        tmp = 1;
+    else
+        tmp = 2;
+    dest = ft_itoa_x(nb, tmp);
+    if (nb == 0)
+        ft_putchar('0', 0);
+    ft_putstr(dest,0);
+    return 1;
+}
+
 int     ft_point_star(int i, const char *str, va_list print_list)
 {
 
@@ -98,6 +147,11 @@ int     ft_point_star(int i, const char *str, va_list print_list)
 
     tmp = va_arg(print_list, int);
     i++;
+    if ((str[i] == 'x' || str [i] == 'X') && tmp < 0)
+    {
+        ft_point_x_star(str[i], va_arg(print_list, unsigned int));
+        return i;
+    }
     ft_type_point(str[i], print_list, tmp);
     return (i);
 }

@@ -47,7 +47,7 @@ int     ft_squeeze(int i, const char *str, va_list print_list);
 int     ft_squeeze_spec(int i, const char *str);
 int     ft_squeeze_point(int i, const char *str);
 void    ft_type_squeeze(char type, va_list print_list, int space, int zer);
-void    ft_condition_squeeze_d(int nb, int tmp);
+void    ft_condition_squeeze_d(int nb, int tmp,int lengh);
 void    ft_write_space(int space);
 char	*ft_itoa_squeeze( int n, int base);
 char	*ft_itoa_u_space(long int n, int base);

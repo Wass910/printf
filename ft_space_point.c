@@ -9,6 +9,65 @@ int     ft_point_d_space(int nb, int space, int zer)
     tmp = 0;
     dest = ft_itoa_space(nb, 10);
     lengh = ft_strlen(dest);
+    if( space < 0 && zer <= 0)
+    {
+        space = space * (-1);
+        zer = zer * (-1);
+        if(nb < 0)
+        {
+            ft_putchar('-', 0);
+            space--;
+        }
+        if (lengh > zer)
+            space = space - lengh;
+        else 
+            space = space - zer;
+        ft_putstr(dest, 0);
+        while(space > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1;
+    }
+    if (space < 0)
+    {
+        space = (space * (-1)) - zer;
+        if(nb < 0)
+        {
+            ft_putchar('-', 0);
+            space--;
+        }
+        while (zer - lengh > 0)
+        {
+            ft_putchar('0', 0);
+            zer--;
+        }
+        ft_putstr(dest, 0);
+        while (space  > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1 ;
+    }
+    if (zer < 0)
+    {
+        zer = (zer * (-1)) ;
+        if(nb < 0)
+        {
+            ft_putchar('-', 0);
+            space--;
+        }
+        while (space - lengh > 0)
+        {
+            //ft_putchar('0', 0);
+            ft_putchar(' ', 0);
+            space--;
+        }
+        ft_putstr(dest, 0);
+        return 1 ;
+    }
     if (nb < 0)
         space--;
     if (lengh > zer)
@@ -17,9 +76,28 @@ int     ft_point_d_space(int nb, int space, int zer)
         space = space - zer;
     if (zer < 0)
     {
+        if (lengh > space)
+        {
+            while (space  > 0)
+            {
+                ft_putchar(' ', 0);
+                space--;
+            }
+            if(nb < 0)
+            {
+                ft_putchar('-', 0);
+            }
+            ft_putstr(dest, 0);
+            return 1;
+        }
         if(nb < 0)
         {
             ft_putchar('-', 0);
+        }
+        if(nb == 0)
+        {
+            ft_putchar('0', 0);
+            lengh++;
         }
         while (space  > 0)
         {
@@ -57,6 +135,32 @@ int     ft_point_u_space(unsigned int nb, int space, int zer)
     tmp = 0;
     dest = ft_itoa_u_space(nb, 10);
     lengh = ft_strlen(dest);
+    if (lengh == 0)
+        lengh++;
+    if (zer < 0)
+    {
+        while(space - lengh > 0)
+        {
+            //ft_putchar('0', 0);
+            ft_putchar(' ', 0);
+            space--;
+        }
+        if(nb == 0)
+        {
+            ft_putchar('0', 0);
+        }
+        ft_putstr(dest, 0);
+        return 1;
+    }
+    if(nb == 0 && zer == 0)
+    {
+        while (space > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1;
+    }
     if (nb < 0)
         space--;
     if (zer < lengh)
@@ -73,6 +177,10 @@ int     ft_point_u_space(unsigned int nb, int space, int zer)
     if(nb < 0)
     {
         ft_putchar('-', 0);
+    }
+    if(nb == 0)
+    {
+        ft_putchar('0', 0);
     }
     while (zer - lengh > 0)
     {
@@ -93,9 +201,43 @@ int     ft_point_x_space(unsigned int nb, int space, int zer, char type)
     tmp = 0;
     dest = ft_itoa_x(nb, 10);
     lengh = ft_strlen(dest);
+    if (lengh == 0)
+        lengh++;
+    if( zer == 0 && nb == 0)
+    {
+        if (space < 0)
+            space = space * (-1);
+        while(space > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1;
+    }
+    if (zer < 0)
+    {
+        while(space - lengh > 0)
+        {
+            //ft_putchar('0', 0);
+            ft_putchar(' ', 0);
+            space--;
+        }
+        ft_verif_x(type, nb);
+        return 1;
+    }
     if (space < 0)
     {
         ft_verif_x_space(type, nb);
+        if (nb == 0)
+        {
+            while (zer > 0)
+            {
+                ft_putchar('0', 0);
+                zer--;
+                lengh++;
+            }
+            lengh--;
+        }
         space = space * (-1);
         while(space - lengh > 0)
         {
@@ -122,7 +264,6 @@ int     ft_point_x_space(unsigned int nb, int space, int zer, char type)
     if (nb == 0)
     {
         ft_putchar('0', 0);
-        lengh--;
     }
     while (zer - lengh > 0)
     {
@@ -143,6 +284,17 @@ int     ft_point_s_space(char *dest, int space, int zer)
     i = 0;
 
     lengh = ft_strlen(dest);
+    if (lengh == 0)
+    {
+        if (space < 0)
+            space = space *(-1);
+        while(space  > 0)
+        {
+            ft_putchar(' ', 0);
+            space--;
+        }
+        return 1;
+    }
     if (zer < lengh)
         tmp = space - zer;
     else if (space > zer)
@@ -179,7 +331,7 @@ int     ft_point_s_space(char *dest, int space, int zer)
     }
     if (dest[i] != '\0')
     {
-        while (zer > 0)    
+        while (zer > 0 && dest[i] != '\0')    
         {
             ft_putchar(dest[i], 0);
             zer--;
@@ -237,7 +389,7 @@ int     ft_test_spec(int i, const char *str, va_list print_list)
         zer = ft_squeeze_point(tmp + 1, str);
     while (str[tmp] < 'A' || (str[tmp] > 'Z' && str[tmp] < 'a') || str[tmp] > 'z')
         tmp++;
-    if (str[tmp] != 's' && str[tmp] != 'x' && str[tmp] != 'X' && space < 0)
+    if (str[tmp] != 's' && str[tmp] != 'x' && str[tmp] != 'X' && str[tmp] != 'd' && str[tmp] != 'i' && space < 0 )
             space = space * (-1);
     if (str[tmp] == 'x' || str[tmp == 'X'])
         ft_type_squeeze_spec(str[tmp], print_list, space, zer);

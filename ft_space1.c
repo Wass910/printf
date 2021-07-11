@@ -9,10 +9,17 @@ int     ft_space_d(int nb, int speciation)
     lengh = ft_strlen(dest);
     if (speciation <  0)
     {
+
         if (nb == 0)
         {
             ft_putchar('0', 0);
             lengh++;
+        }
+        else if (nb < 0)
+        {
+            ft_putchar('-', 0);
+            lengh++;
+            ft_putstr(dest, 0);
         }
         else
             ft_putstr(dest, 0);
@@ -76,7 +83,7 @@ int     ft_space_u(unsigned int nb, int speciation)
     char *dest;
     int lengh;
 
-    if (nb == 0)
+    if (nb == 0 && speciation >= 0)
     {
         while(speciation - 1 > 0)
         {
@@ -88,7 +95,19 @@ int     ft_space_u(unsigned int nb, int speciation)
     }
     dest = ft_itoa_u(nb, 10);
     lengh = ft_strlen(dest);
-    
+    if (speciation < 0)
+    {
+        if (lengh == 0)
+            lengh++;
+        ft_putstr(dest, 0);
+        speciation = speciation * (-1);
+        while(speciation - lengh > 0)
+        {
+            ft_putchar(' ', 0);
+            speciation--;
+        }
+        return 1;
+    }
     if(nb <= 0)
         speciation--;
     
@@ -177,6 +196,8 @@ int     ft_space_s(char *dest, int speciation)
         ft_space_s_null("(null)", speciation);
         return 1;
     }
+    if ( speciation < 0)
+        speciation = speciation * (-1);
     lengh = ft_strlen(dest);
     while(speciation - lengh > 0)
     {
@@ -232,7 +253,7 @@ int     ft_space_star(int i, const char *str, va_list print_list)
     int tmp;
 
     tmp = va_arg(print_list, int);
-    if (tmp < 0 && str[i + 1] != 'x' && str[i + 1] != 'X' && str[i + 1] != 'd' && str[i + 1] != 'i' && str[i + 1] != 's')
+    if (tmp < 0 && str[i + 1] != 'x' && str[i + 1] != 'X' && str[i + 1] != 'd' && str[i + 1] != 'i' && str[i + 1] != 's' && str[i + 1] != 'c' && str[i + 1] != 'u')
         tmp = tmp * (-1);
     i++;
     ft_type_space(str[i], print_list, tmp);
