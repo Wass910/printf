@@ -111,21 +111,3 @@ int     ft_tiret(int i, const char *str, va_list print_list)
     free(speciation);
     return (i);
 }
-
-int     ft_tiret_star(int i, const char *str, va_list print_list)
-{
-    int tmp;
-    int espaces;
-
-    tmp = va_arg(print_list, int);
-    if (tmp < 0)
-        tmp = tmp * (-1);
-    i++;
-    espaces = ft_type_tiret(str[i], print_list);
-    while(tmp - espaces > 0)
-    {
-        ft_putchar(' ', 0);
-        tmp--;
-    }
-    return (i);
-}

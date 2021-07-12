@@ -63,13 +63,11 @@ int     ft_point_x(char type,long int nb, int speciation)
         lengh++;
     if(nb <= 0)
         speciation--;
-    while(speciation - lengh > 0)
+    while(speciation > 0)
     {
         ft_putchar('0', 0);
         speciation--;
     }
-    if (nb == 0)
-        ft_putchar('0', 0);
     ft_verif_x_space(type, nb);
     free(dest);
     return 1;
@@ -121,37 +119,5 @@ int     ft_point(int i, const char *str, va_list print_list)
     tmp = ft_atoi(speciation);
     ft_type_point(str[i], print_list, tmp);
     free(speciation);
-    return (i);
-}
-
-int     ft_point_x_star(char type, unsigned int nb)
-{
-    char *dest;
-    int tmp;
-
-    if(type == 'x')
-        tmp = 1;
-    else
-        tmp = 2;
-    dest = ft_itoa_x(nb, tmp);
-    if (nb == 0)
-        ft_putchar('0', 0);
-    ft_putstr(dest,0);
-    return 1;
-}
-
-int     ft_point_star(int i, const char *str, va_list print_list)
-{
-
-    int tmp;
-
-    tmp = va_arg(print_list, int);
-    i++;
-    if ((str[i] == 'x' || str [i] == 'X') && tmp < 0)
-    {
-        ft_point_x_star(str[i], va_arg(print_list, unsigned int));
-        return i;
-    }
-    ft_type_point(str[i], print_list, tmp);
     return (i);
 }

@@ -95,13 +95,3 @@ int     ft_zero(int i, const char *str, va_list print_list)
     free(speciation);
     return (i);
 }
-
-int     ft_zero_star(int i, const char *str, va_list print_list)
-{
-    int tmp;
-
-    tmp = va_arg(print_list, int);
-    i++;
-    ft_type_zero(str[i], print_list, tmp);
-    return (i);
-}

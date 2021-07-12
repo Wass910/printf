@@ -5,13 +5,11 @@ SRC=    ft_atoi.c       		\
 		ft_printf.c    	\
 		ft_putchar.c     \
 		ft_putstr.c     \
-		ft_space1.c     \
-		ft_squeeze.c     \
+		ft_space.c     \
 		ft_strdup.c     \
 		ft_strlen.c     \
 		ft_tiret.c     \
 		ft_zero.c     \
-		ft_space_point.c
 
 NAME= libftprintf.a
 
