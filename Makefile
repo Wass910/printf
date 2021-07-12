@@ -8,6 +8,7 @@ SRC=    ft_accessories.c	\
 		ft_putchar.c     \
 		ft_putstr.c     \
 		ft_space.c     \
+		ft_space2.c     \
 		ft_strdup.c     \
 		ft_strlen.c     \
 		ft_tiret.c     \
