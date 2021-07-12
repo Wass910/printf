@@ -55,31 +55,22 @@ int     ft_type_tiret(char type, va_list print_list)
     if(type == 'd' || type == 'i')
         return(ft_tiret_d(va_arg(print_list, int)));
     else if(type == 'c')
-    {
         ft_putchar(va_arg(print_list, int), 0);
         return 1;
-    }
     else if(type == 's')
     {    
         dest = ft_strdup(va_arg(print_list, char*));
         if (dest == NULL)
-        {
             ft_putstr("(null)", 0);
-            return ft_strlen(dest);
-        }
         ft_putstr(dest, 0);
-        return ft_strlen(dest);
     }
     else if(type == 'u')
         return (ft_tiret_u(va_arg(print_list, unsigned int)));
     else if(type == 'x' || type == 'X')
         return (ft_tiret_x(type, va_arg(print_list,unsigned int)));
     else if(type == 'p')
-    {
         dest = ft_adress(va_arg(print_list,void *));
-        return (ft_strlen(dest) + 2);
-    }
-    return 0;
+    return (1);
 }
 
 int     ft_tiret(int i, const char *str, va_list print_list)

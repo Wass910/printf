@@ -1,5 +1,7 @@
-SRC=    ft_atoi.c       		\
+SRC=    ft_accessories.c	\
+		ft_atoi.c       		\
 		ft_itoa.c      \
+		ft_itoa2.c      \
 		ft_no_zer.c    \
 		ft_point.c       \
 		ft_printf.c    	\

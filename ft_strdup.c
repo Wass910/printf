@@ -9,10 +9,11 @@ char	*ft_strdup(const char *s)
 	e = 0;
 	i = 0;
 	if (s == NULL)
-		return NULL;
+		return (NULL);
 	while (s[i] != '\0')
 		i++;
-	if (!(str = malloc(sizeof(*str) * (i + 1))))
+	str = malloc(sizeof(*str) * (i + 1));
+	if (str == NULL)
 		return (NULL);
 	while (e < i)
 	{
