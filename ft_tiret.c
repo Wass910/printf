@@ -15,17 +15,20 @@
 int	ft_tiret_d(int no_zer)
 {
 	char	*dest;
-
-	dest = ft_itoa(no_zer, 10);
+	int		lengh;
+	if (no_zer == INT_MIN)
+		dest = ft_strdup("-2147483648");
+	else 
+		dest = ft_itoa(no_zer, 10);
 	ft_putstr(dest, 0);
-	free(dest);
+	lengh = ft_strlen(dest);
 	if (ft_no_zer(no_zer) == 1)
 		return (1);
-	if (no_zer == ft_strlen(dest))
-		return (ft_strlen(dest));
+	if (no_zer == lengh)
+		return (lengh);
 	if (no_zer < 0)
-		return (ft_strlen(dest) + 1);
-	return (ft_strlen(dest));
+		return (lengh + 1);
+	return (lengh);
 }
 
 int	ft_tiret_u(unsigned int no_zer_u)
@@ -65,7 +68,7 @@ int	ft_tiret_x(char type, long int tiret_x)
 int	ft_type_tiret(char type, va_list print_list)
 {
 	char	*dest;
-
+	void	*adress;
 	if (type == 'd' || type == 'i')
 		return (ft_tiret_d(va_arg(print_list, int)));
 	else if (type == 'c')
@@ -84,7 +87,10 @@ int	ft_type_tiret(char type, va_list print_list)
 		return (ft_tiret_x(type, va_arg(print_list, unsigned int)));
 	else if (type == 'p')
 	{
-		dest = ft_adress(va_arg(print_list, void *));
+		adress = va_arg(print_list, void *);
+		dest = ft_adress(adress);
+		if (adress == NULL)
+			return 3;
 		return (ft_strlen(dest) + 2);
 	}
 	return (1);

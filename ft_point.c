@@ -17,7 +17,10 @@ int	ft_point_d(int nb, int speciation)
 	char	*dest;
 	int		lengh;
 
-	dest = ft_itoa_squeeze(nb, 10);
+	if (nb == INT_MIN)
+		dest = ft_strdup("-2147483648");
+	else 
+		dest = ft_itoa_squeeze(nb, 10);
 	lengh = ft_strlen(dest);
 	if (lengh == 0)
 		lengh++;

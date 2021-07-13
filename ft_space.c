@@ -17,7 +17,10 @@ int	ft_space_d(int nb, int speciation)
 	char	*dest;
 	int		lengh;
 
-	dest = ft_itoa_space(nb, 10);
+	if (nb == INT_MIN)
+		dest = ft_strdup("2147483648");
+	else 
+		dest = ft_itoa_space(nb, 10);
 	lengh = ft_strlen(dest);
 	if (nb <= 0)
 		speciation--;
@@ -93,6 +96,8 @@ int	ft_space_p(void *adress, int speciation)
 
 	dest = ft_itoa_u((intptr_t)adress, 16);
 	lengh = ft_strlen(dest) + 2;
+	if (adress == NULL)
+		lengh++;
 	while (speciation - lengh > 0)
 	{
 		ft_putchar(' ', 0);

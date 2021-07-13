@@ -48,10 +48,12 @@ void	ft_verif_x_space(char c, unsigned int nb)
 char	*ft_adress(void *adress)
 {
 	char	*dest;
-
 	dest = ft_itoa_u((intptr_t)adress, 16);
 	write(1, "0x", 2);
-	ft_putstr(dest, 0);
+	if (adress == NULL)
+		ft_putchar('0', 0);
+	else
+		ft_putstr(dest, 0);
 	return (dest);
 }
 

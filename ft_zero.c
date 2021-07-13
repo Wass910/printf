@@ -17,10 +17,15 @@ int	ft_zero_d(int nb, int speciation)
 	char	*dest;
 	int		lengh;
 
-	dest = ft_itoa(nb, 10);
+	if (nb == INT_MIN)
+		dest = ft_strdup("2147483648");
+	else 
+		dest = ft_itoa(nb, 10);
 	lengh = ft_strlen(dest);
 	if (nb <= 0)
 		speciation--;
+	if (nb == INT_MIN)
+		ft_putchar('-', 0);
 	while (speciation - lengh > 0)
 	{
 		ft_putchar('0', 0);

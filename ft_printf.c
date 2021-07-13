@@ -21,12 +21,22 @@ void	ft_norme_u(unsigned int nb_u)
 	return ;
 }
 
+void	ft_norme_d(int nb)
+{
+	if (nb != INT_MIN)
+		ft_putstr(ft_itoa(nb, 10), 0);
+	else
+		ft_putstr("-2147483648", 0);
+	return ;
+}
+
 void	ft_type(char type, va_list print_list)
 {
 	char	*dest;
+	void	*adress;
 
 	if (type == 'd' || type == 'i')
-		ft_putstr(ft_itoa(va_arg(print_list, int), 10), 0);
+		ft_norme_d(va_arg(print_list, int));
 	else if (type == 'c')
 		ft_putchar(va_arg(print_list, int), 0);
 	else if (type == 's')
@@ -42,7 +52,9 @@ void	ft_type(char type, va_list print_list)
 	else if (type == 'x' || type == 'X')
 		ft_verif_x(type, va_arg(print_list, unsigned int));
 	else if (type == 'p')
+	{
 		ft_adress(va_arg(print_list, void *));
+	}
 	return ;
 }
 
@@ -97,4 +109,14 @@ int	ft_printf(const char *str, ...)
 	va_end(print_list);
 	printf("\n");
 	return (result);
+}
+
+int main()
+{
+	int *ptr = NULL;
+
+	ft_printf("salut  a%pa  \n",NULL);
+	printf("salut  a%pa  \n",NULL);
+
+	return 0;
 }
