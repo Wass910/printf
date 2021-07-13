@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_zero.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:28:19 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:28:22 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_zero_d(int nb, int speciation)
@@ -33,6 +45,8 @@ int	ft_zero_u(unsigned int nb, int speciation)
 		ft_putchar('0', 0);
 		speciation--;
 	}
+	if (nb == 0)
+		ft_putchar('0', 0);
 	ft_putstr(dest, 0);
 	free(dest);
 	return (1);

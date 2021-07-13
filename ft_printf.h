@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:25:37 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:25:39 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -45,5 +57,6 @@ int				ft_space_p(void *adress, int speciation);
 int				ft_space_s_null(char *dest, int speciation);
 int				ft_space_s(char *dest, int speciation);
 int				ft_type_space(char type, va_list print_list, int speciation);
+void			ft_tiret_norme(int tmp, int espaces);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_point.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:25:15 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:25:19 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_point_d(int nb, int speciation)
@@ -51,22 +63,17 @@ int	ft_point_x(char type, long int nb, int speciation)
 	char	*dest;
 	int		lengh;
 
-	if (speciation < 0)
-	{
-		ft_space_x(type, nb, speciation);
-		return (1);
-	}
 	dest = ft_itoa_x(nb, 10);
 	lengh = ft_strlen(dest);
-	if (lengh == 0)
-		lengh++;
 	if (nb <= 0)
 		speciation--;
-	while (speciation > 0)
+	while (speciation - lengh > 0)
 	{
 		ft_putchar('0', 0);
 		speciation--;
 	}
+	if (nb == 0)
+		ft_putchar('0', 0);
 	ft_verif_x_space(type, nb);
 	free(dest);
 	return (1);
@@ -101,7 +108,7 @@ int	ft_point(int i, const char *str, va_list print_list)
 	tmp = i;
 	while (str[tmp + 1] >= '0' && str [tmp + 1] <= '9')
 		tmp++;
-	speciation = malloc(sizeof(*speciation) * (tmp + 1));
+	speciation = malloc(sizeof(char) * (tmp + 1));
 	if (speciation == NULL)
 		return (0);
 	tmp = 0;

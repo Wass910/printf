@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_space2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:27:38 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:27:40 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_space_s_null(char *dest, int speciation)
@@ -23,8 +35,6 @@ int	ft_space_s(char *dest, int speciation)
 		ft_space_s_null("(null)", speciation);
 		return (1);
 	}
-	if (speciation < 0)
-		speciation = speciation * (-1);
 	lengh = ft_strlen(dest);
 	while (speciation - lengh > 0)
 	{

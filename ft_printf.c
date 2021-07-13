@@ -1,4 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:25:26 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:25:29 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
+
+void	ft_norme_u(unsigned int nb_u)
+{
+	if (nb_u != 0)
+		ft_putstr(ft_itoa_u(nb_u, 10), 0);
+	else
+		ft_putchar('0', 0);
+	return ;
+}
 
 void	ft_type(char type, va_list print_list)
 {
@@ -17,7 +38,7 @@ void	ft_type(char type, va_list print_list)
 			ft_putstr(dest, 0);
 	}
 	else if (type == 'u')
-		ft_putstr(ft_itoa_u(va_arg(print_list, unsigned int), 10), 0);
+		ft_norme_u(va_arg(print_list, unsigned int));
 	else if (type == 'x' || type == 'X')
 		ft_verif_x(type, va_arg(print_list, unsigned int));
 	else if (type == 'p')
@@ -73,7 +94,7 @@ int	ft_printf(const char *str, ...)
 	count = ft_putchar('a', 1);
 	ret = ft_putstr("a", 1);
 	result = count + ret;
-	printf("\n");
 	va_end(print_list);
+	printf("\n");
 	return (result);
 }

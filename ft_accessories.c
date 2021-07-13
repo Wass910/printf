@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_accessories.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:23:12 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:23:18 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 unsigned int	ft_convers_u(unsigned int nb)
@@ -41,4 +53,14 @@ char	*ft_adress(void *adress)
 	write(1, "0x", 2);
 	ft_putstr(dest, 0);
 	return (dest);
+}
+
+void	ft_tiret_norme(int tmp, int espaces)
+{
+	while (tmp - espaces > 0)
+	{
+		ft_putchar(' ', 0);
+		tmp--;
+	}
+	return ;
 }

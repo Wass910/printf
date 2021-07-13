@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/13 18:24:46 by idhiba            #+#    #+#             */
+/*   Updated: 2021/07/13 18:24:48 by idhiba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*ft_itoa_space( int n, int base)
@@ -37,8 +49,6 @@ char	*ft_itoa_u(long int n, int base)
 	alpha = "0123456789abcdef";
 	if (n < 0)
 		n = 4294967296 - (1 * n);
-	if (n == 0)
-		ft_putchar('0', 0);
 	while (n > 0)
 	{
 		str[i] = alpha[n % base];
@@ -48,16 +58,6 @@ char	*ft_itoa_u(long int n, int base)
 	str[i] = '\0';
 	str = ft_strrev(str);
 	return (str);
-}
-
-void	ft_n_neg(int n)
-{
-	if (n < 0)
-	{
-		n = 4294967296 - (1 * n);
-		ft_putchar('-', 0);
-	}
-	return ;
 }
 
 char	*ft_itoa_x(long int n, int type_charac)
@@ -74,7 +74,6 @@ char	*ft_itoa_x(long int n, int type_charac)
 		alpha = "0123456789abcdef";
 	else
 		alpha = "0123456789ABCDEF";
-	ft_n_neg(n);
 	while (n > 0)
 	{
 		str[i] = alpha[n % 16];
