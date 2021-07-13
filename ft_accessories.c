@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:23:12 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:23:18 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:47:57 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_verif_x_space(char c, unsigned int nb)
 char	*ft_adress(void *adress)
 {
 	char	*dest;
+
 	dest = ft_itoa_u((intptr_t)adress, 16);
 	write(1, "0x", 2);
 	if (adress == NULL)

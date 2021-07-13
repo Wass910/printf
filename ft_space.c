@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:27:20 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:27:29 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:49:55 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_space_d(int nb, int speciation)
 
 	if (nb == INT_MIN)
 		dest = ft_strdup("2147483648");
-	else 
+	else
 		dest = ft_itoa_space(nb, 10);
 	lengh = ft_strlen(dest);
 	if (nb <= 0)

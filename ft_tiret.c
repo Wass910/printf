@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:28:09 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:28:15 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:54:43 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	ft_tiret_d(int no_zer)
 {
 	char	*dest;
 	int		lengh;
+
 	if (no_zer == INT_MIN)
 		dest = ft_strdup("-2147483648");
-	else 
+	else
 		dest = ft_itoa(no_zer, 10);
 	ft_putstr(dest, 0);
 	lengh = ft_strlen(dest);
@@ -69,6 +70,7 @@ int	ft_type_tiret(char type, va_list print_list)
 {
 	char	*dest;
 	void	*adress;
+
 	if (type == 'd' || type == 'i')
 		return (ft_tiret_d(va_arg(print_list, int)));
 	else if (type == 'c')
@@ -90,7 +92,7 @@ int	ft_type_tiret(char type, va_list print_list)
 		adress = va_arg(print_list, void *);
 		dest = ft_adress(adress);
 		if (adress == NULL)
-			return 3;
+			return (3);
 		return (ft_strlen(dest) + 2);
 	}
 	return (1);

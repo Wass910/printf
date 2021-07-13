@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:26 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:25:29 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:49:16 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_norme_d(int nb)
 void	ft_type(char type, va_list print_list)
 {
 	char	*dest;
-	void	*adress;
 
 	if (type == 'd' || type == 'i')
 		ft_norme_d(va_arg(print_list, int));
@@ -52,9 +51,7 @@ void	ft_type(char type, va_list print_list)
 	else if (type == 'x' || type == 'X')
 		ft_verif_x(type, va_arg(print_list, unsigned int));
 	else if (type == 'p')
-	{
 		ft_adress(va_arg(print_list, void *));
-	}
 	return ;
 }
 
@@ -113,7 +110,6 @@ int	ft_printf(const char *str, ...)
 
 int main()
 {
-	int *ptr = NULL;
 
 	ft_printf("salut  a%pa  \n",NULL);
 	printf("salut  a%pa  \n",NULL);

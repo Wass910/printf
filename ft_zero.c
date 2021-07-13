@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:28:19 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:28:22 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:50:31 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_zero_d(int nb, int speciation)
 
 	if (nb == INT_MIN)
 		dest = ft_strdup("2147483648");
-	else 
+	else
 		dest = ft_itoa(nb, 10);
 	lengh = ft_strlen(dest);
 	if (nb <= 0)

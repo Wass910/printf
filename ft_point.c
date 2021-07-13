@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:15 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:25:19 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/13 23:48:31 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_point_d(int nb, int speciation)
 
 	if (nb == INT_MIN)
 		dest = ft_strdup("-2147483648");
-	else 
+	else
 		dest = ft_itoa_squeeze(nb, 10);
 	lengh = ft_strlen(dest);
 	if (lengh == 0)
