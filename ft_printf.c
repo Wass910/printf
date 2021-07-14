@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:26 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 23:49:16 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/14 19:27:26 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,5 @@ int	ft_printf(const char *str, ...)
 	ret = ft_putstr("a", 1);
 	result = count + ret;
 	va_end(print_list);
-	printf("\n");
 	return (result);
 }

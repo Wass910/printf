@@ -20,7 +20,7 @@ void	ft_norme_d(int nb)
 
 int	ft_norme_tiret(void *adress)
 {
-	char *dest;
+	char	*dest;
 
 	dest = ft_adress(adress);
 	if (adress == NULL)
