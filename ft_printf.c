@@ -88,3 +88,13 @@ int	ft_printf(const char *str, ...)
 	va_end(print_list);
 	return (result);
 }
+
+
+int main()
+{
+	int *ptr;
+
+	ft_printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0, "", NULL, 'c');
+	printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0, "", NULL, 'c');
+	return 0;
+}
