@@ -58,12 +58,3 @@ char	*ft_adress(void *adress)
 	return (dest);
 }
 
-void	ft_tiret_norme(int tmp, int espaces)
-{
-	while (tmp - espaces > 0)
-	{
-		ft_putchar(' ', 0);
-		tmp--;
-	}
-	return ;
-}

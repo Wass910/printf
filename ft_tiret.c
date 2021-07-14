@@ -69,7 +69,6 @@ int	ft_tiret_x(char type, long int tiret_x)
 int	ft_type_tiret(char type, va_list print_list)
 {
 	char	*dest;
-	void	*adress;
 
 	if (type == 'd' || type == 'i')
 		return (ft_tiret_d(va_arg(print_list, int)));
@@ -88,13 +87,7 @@ int	ft_type_tiret(char type, va_list print_list)
 	else if (type == 'x' || type == 'X')
 		return (ft_tiret_x(type, va_arg(print_list, unsigned int)));
 	else if (type == 'p')
-	{
-		adress = va_arg(print_list, void *);
-		dest = ft_adress(adress);
-		if (adress == NULL)
-			return (3);
-		return (ft_strlen(dest) + 2);
-	}
+		return (ft_norme_tiret(va_arg(print_list, void *)));
 	return (1);
 }
 

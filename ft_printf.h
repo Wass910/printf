@@ -58,5 +58,8 @@ int				ft_space_s_null(char *dest, int speciation);
 int				ft_space_s(char *dest, int speciation);
 int				ft_type_space(char type, va_list print_list, int speciation);
 void			ft_tiret_norme(int tmp, int espaces);
+void            ft_norme_u(unsigned int nb_u);
+void        	ft_norme_d(int nb);
+int             ft_norme_tiret(void *adress);
 
 #endif

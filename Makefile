@@ -8,6 +8,7 @@ SRC=    ft_accessories.c	\
 		ft_putstr.c     \
 		ft_strdup.c     \
 		ft_strlen.c     \
+		ft_norme.c		\
 
 BONUS=	ft_zero.c	\
 		ft_tiret.c	\

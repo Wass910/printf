@@ -12,24 +12,6 @@
 
 #include "ft_printf.h"
 
-void	ft_norme_u(unsigned int nb_u)
-{
-	if (nb_u != 0)
-		ft_putstr(ft_itoa_u(nb_u, 10), 0);
-	else
-		ft_putchar('0', 0);
-	return ;
-}
-
-void	ft_norme_d(int nb)
-{
-	if (nb != INT_MIN)
-		ft_putstr(ft_itoa(nb, 10), 0);
-	else
-		ft_putstr("-2147483648", 0);
-	return ;
-}
-
 void	ft_type(char type, va_list print_list)
 {
 	char	*dest;
@@ -106,13 +88,4 @@ int	ft_printf(const char *str, ...)
 	va_end(print_list);
 	printf("\n");
 	return (result);
-}
-
-int main()
-{
-
-	ft_printf("salut  a%pa  \n",NULL);
-	printf("salut  a%pa  \n",NULL);
-
-	return 0;
 }
