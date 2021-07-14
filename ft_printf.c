@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:26 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/14 19:27:26 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/14 21:04:22 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,4 @@ int	ft_printf(const char *str, ...)
 	result = count + ret;
 	va_end(print_list);
 	return (result);
-}
-
-
-int main()
-{
-	int a = 12;
-	int *ptr = &a;
-
-	ft_printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0,0, "", NULL, 'c');
-	printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0,0, "", NULL, 'c');
-	return 0;
 }

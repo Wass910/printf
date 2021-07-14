@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:27:38 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/13 18:27:40 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/14 20:53:11 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,9 @@ int	ft_type_space(char type, va_list print_list, int speciation)
 	return (0);
 }
 
-
 int	ft_space(int i, const char *str, va_list print_list)
 {
-	char	*speciation = NULL;
+	char	*speciation;
 	int		tmp;
 
 	tmp = 0;
