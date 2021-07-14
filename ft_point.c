@@ -18,12 +18,14 @@ int	ft_point_d(int nb, int speciation)
 	int		lengh;
 
 	if (nb == INT_MIN)
-		dest = ft_strdup("-2147483648");
+		dest = ft_strdup("2147483648");
 	else
 		dest = ft_itoa_squeeze(nb, 10);
 	lengh = ft_strlen(dest);
 	if (lengh == 0)
 		lengh++;
+	if (nb == INT_MIN)
+		ft_putchar('-', 0);
 	while (speciation - lengh > 0)
 	{
 		ft_putchar('0', 0);

@@ -41,7 +41,6 @@ char			*ft_itoa_space( int n, int base);
 int				ft_space(int i, const char *str, va_list print_list);
 char			*ft_itoa_squeeze( int n, int base);
 char			*ft_itoa_u_space(long int n, int base);
-int				ft_test_spec(int i, const char *str, va_list print_list);
 void			ft_verif_x_space(char c, unsigned int nb);
 int				ft_count(int n);
 int				ft_count_long(long int n);

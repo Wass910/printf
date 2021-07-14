@@ -41,13 +41,10 @@ int	ft_flag(int i, const char *str, va_list print_list)
 {
 	if (str[i] == '-')
 		i = ft_tiret(i, str, print_list);
-	else if (str[i] >= '0' && str[i] <= '9')
-	{
-		if (str[i] == '0')
-			i = ft_zero(i, str, print_list);
-		else
-			i = ft_space(i, str, print_list);
-	}
+	else if (str[i] == '0')
+		i = ft_zero(i, str, print_list);
+	else if (str[i] >= '1' && str[i] <= '9')
+		i = ft_space(i, str, print_list);
 	else if (str[i] == '.')
 		i = ft_point(i, str, print_list);
 	else
@@ -92,9 +89,10 @@ int	ft_printf(const char *str, ...)
 
 int main()
 {
-	int *ptr;
+	int a = 12;
+	int *ptr = &a;
 
-	ft_printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0, "", NULL, 'c');
-	printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0, "", NULL, 'c');
+	ft_printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0,0, "", NULL, 'c');
+	printf(" salut a%pa %-14da   %014da %14da %.14daa%ua   a%.13xa aaa%017ua   a%12s a%-19per   a%-3ca  \n",ptr, INT_MIN, INT_MIN, INT_MIN, INT_MIN, 0, 0,0, "", NULL, 'c');
 	return 0;
 }

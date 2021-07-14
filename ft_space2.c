@@ -62,17 +62,22 @@ int	ft_type_space(char type, va_list print_list, int speciation)
 	return (0);
 }
 
+
 int	ft_space(int i, const char *str, va_list print_list)
 {
-	char	*speciation;
+	char	*speciation = NULL;
 	int		tmp;
 
-	tmp = i;
-	while (str[tmp] >= '0' && str [tmp] <= '9')
+	tmp = 0;
+	while (str[i] >= '0' && str [i] <= '9')
+	{	
+		i++;
 		tmp++;
+	}
 	speciation = malloc(sizeof(*speciation) * (tmp + 1));
 	if (speciation == NULL)
 		return (0);
+	i = i - tmp;
 	tmp = 0;
 	while (str[i] >= '0' && str [i] <= '9')
 	{

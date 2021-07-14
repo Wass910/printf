@@ -27,7 +27,7 @@ int	ft_tiret_d(int no_zer)
 		return (1);
 	if (no_zer == lengh)
 		return (lengh);
-	if (no_zer < 0)
+	if (no_zer < 0 && no_zer > INT_MIN)
 		return (lengh + 1);
 	return (lengh);
 }
