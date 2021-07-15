@@ -80,20 +80,15 @@ char	*ft_itoa(int n, int base)
 {
 	char	*alpha;
 	char	*str;
+	char	*test;
 	int		i;
 
 	i = 0;
-	str = (char *)malloc(sizeof(char) * (ft_count(n) + 1));
+	str = malloc(sizeof(char) * (ft_count(n) + 1));
 	if (str == NULL)
 		return (0);
 	alpha = "0123456789abcdef";
-	if (n < 0)
-	{	
-		n = 4294967296 - (1 * n);
-		ft_putchar('-', 0);
-	}
-	if (n == 0)
-		ft_putchar('0', 0);
+	n = ft_norme_itoa(n);
 	while (n > 0)
 	{
 		str[i] = alpha[n % base];
@@ -101,8 +96,9 @@ char	*ft_itoa(int n, int base)
 		n = n / base;
 	}
 	str[i] = '\0';
-	str = ft_strrev(str);
-	return (str);
+	test = ft_strrev(str);
+	free(str);
+	return (test);
 }
 
 char	*ft_itoa_squeeze( int n, int base)

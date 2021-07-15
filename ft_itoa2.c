@@ -40,6 +40,7 @@ char	*ft_itoa_u(long int n, int base)
 {
 	char	*alpha;
 	char	*str;
+	char	*test;
 	int		i;
 
 	i = 0;
@@ -56,14 +57,16 @@ char	*ft_itoa_u(long int n, int base)
 		n = n / base;
 	}
 	str[i] = '\0';
-	str = ft_strrev(str);
-	return (str);
+	test = ft_strrev(str);
+	free(str);
+	return (test);
 }
 
 char	*ft_itoa_x(long int n, int type_charac)
 {
 	char	*alpha;
 	char	*str;
+	char	*test;
 	int		i;
 
 	i = 0;
@@ -81,6 +84,7 @@ char	*ft_itoa_x(long int n, int type_charac)
 		n = n / 16;
 	}
 	str[i] = '\0';
-	str = ft_strrev(str);
-	return (str);
+	test = ft_strrev(str);
+	free(str);
+	return (test);
 }

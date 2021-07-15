@@ -24,15 +24,20 @@ unsigned int	ft_convers_u(unsigned int nb)
 
 void	ft_verif_x(char c, unsigned int nb)
 {
+	char	*dest;
+
+	if (c == 'x')
+		dest = ft_itoa_x(nb, 1);
+	else
+		dest = ft_itoa_x(nb, 2);
 	if (nb == 0)
 	{
+		free(dest);
 		ft_putchar('0', 0);
 		return ;
 	}
-	if (c == 'x')
-		ft_putstr(ft_itoa_x(nb, 1), 0);
-	else
-		ft_putstr(ft_itoa_x(nb, 2), 0);
+	ft_putstr(dest, 0);
+	free(dest);
 	return ;
 }
 
@@ -55,5 +60,6 @@ char	*ft_adress(void *adress)
 		ft_putchar('0', 0);
 	else
 		ft_putstr(dest, 0);
+	free(dest);
 	return (dest);
 }

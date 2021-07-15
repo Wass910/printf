@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:37 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/14 19:26:45 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/15 13:32:56 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void			ft_tiret_norme(int tmp, int espaces);
 void			ft_norme_u(unsigned int nb_u);
 void			ft_norme_d(int nb);
 int				ft_norme_tiret(void *adress);
+int				ft_norme_itoa(int n);
 
 #endif
