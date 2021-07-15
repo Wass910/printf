@@ -6,7 +6,7 @@
 /*   By: idhiba <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 18:25:37 by idhiba            #+#    #+#             */
-/*   Updated: 2021/07/15 13:32:56 by idhiba           ###   ########.fr       */
+/*   Updated: 2021/07/15 16:15:00 by idhiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <limits.h>
 
+int				ft_printf(const char *str, ...);
 char			*ft_itoa(int n, int base);
 char			*ft_itoa_u(long int n, int base);
 char			*ft_itoa_x(long int n, int type_charac);

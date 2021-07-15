@@ -24,16 +24,18 @@ OBJETS_BONUS= $(BONUS:.c=.o)
 
 gcc=gcc -Werror -Wall -Wextra
 
+$(NAME):    ${OBJETS}	$(OBJETS_BONUS)
+			ar -rc ${NAME} $^
+			ranlib ${NAME}
+
 %.o: %.c
 	${gcc} -o $@ -c $<
 
 bonus: $(OBJETS) $(OBJETS_BONUS)
+	@touch $@
 	ar rc $(NAME) $^
 	ranlib $(NAME)
-
-$(NAME):    ${OBJETS}
-			ar -rc ${NAME} $^
-			ranlib ${NAME}
+	
 
 all: ${NAME}
 

@@ -85,11 +85,3 @@ int	ft_printf(const char *str, ...)
 	va_end(print_list);
 	return (result);
 }
-
-int	main()
-{
-
-	ft_printf(" salut a%pa   a%ca   a%sa  a%da a%ia a%ua a%xq  a%Xa\n", NULL, 'p', NULL, 0,0,0,0,0);
-	printf(" salut a%pa   a%ca   a%sa  a%da a%ia a%ua a%xq  a%Xa\n", NULL, 'p', NULL,  0,0,0,0,0);
-
-}
